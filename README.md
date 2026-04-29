@@ -22,7 +22,16 @@ Copy [.env.example](./.env.example) to `.env.local` if you need to override defa
 Repository: [github.com/leveldesignagency/richtons](https://github.com/leveldesignagency/richtons).
 
 1. Push this branch to GitHub (`main` or your chosen production branch).
-2. In [Vercel](https://vercel.com/new), **Import** the repo. Set **Framework Preset** to **Next.js**. Defaults: **Install Command** `npm install`, **Build Command** `npm run build`. Leave **Output Directory empty** — do not type `.next`, `dist`, or `next build`; Vercel wires Next.js output automatically.
+2. In [Vercel](https://vercel.com/new), **Import** the repo. Set **Framework Preset** to **Next.js**.
+
+   **Two different fields — easy to mix up:**
+
+   | Field | What to enter |
+   |-------|----------------|
+   | **Build Command** | `npm run build` ← this runs `next build` via your `package.json` |
+   | **Output Directory** | **Nothing.** Leave the field **blank**. |
+
+   **`next build` belongs only in the build step** (inside `npm run build`). **Never** paste `next build` into **Output Directory** — that field is for static folders like `out`, not commands.
 3. Under **Environment Variables**, add **`NEXT_PUBLIC_SITE_URL`** with your live URL (e.g. `https://richtons.co.uk`), matching the domain you assign in Vercel or your DNS.
 4. Deploy. Preview deployments use the preview URL unless you override `NEXT_PUBLIC_SITE_URL` per environment in Vercel (Production vs Preview).
 
