@@ -1,0 +1,26 @@
+.wordsWrap {
+  display: inline;
+}
+
+.word {
+  display: inline;
+  transition: opacity 0.22s linear;
+}
+
+.toneGreen .word {
+  color: #050505;
+  opacity: 0.14;
+}
+
+.toneGreen .wordActive {
+  opacity: 1;
+}
+
+.toneDark .word {
+  color: rgba(244, 246, 248, 0.96);
+  opacity: 0.13;
+}
+
+.toneDark .wordActive {
+  opacity: 1;
+}

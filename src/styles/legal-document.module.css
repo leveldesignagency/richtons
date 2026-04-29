@@ -1,0 +1,130 @@
+.page {
+  min-height: 100svh;
+  background: #181918;
+  color: #eceff3;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Horizontal inset matches SiteHeader `.headerInner` / footer chrome so logo & legal copy align */
+.main {
+  flex: 1;
+  padding: clamp(3.5rem, 7vw, 5rem) clamp(1rem, 4vw, 2.75rem)
+    clamp(2.5rem, 5vw, 4rem);
+}
+
+/* Use ~three fifths of the viewport on desktop; stay edge-safe on narrow screens */
+.inner {
+  margin: 0 auto;
+  width: 100%;
+  max-width: min(92vw, 76rem);
+}
+
+@media (min-width: 768px) {
+  .inner {
+    max-width: min(76rem, min(92vw, 60vw));
+  }
+}
+
+.meta {
+  margin: 0 0 1.75rem;
+  font-size: 0.88rem;
+  color: #98a4b0;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.85rem, 4vw, 2.65rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.12;
+}
+
+.lead {
+  margin: 0 0 2rem;
+  font-size: clamp(1.02rem, 1.35vw, 1.12rem);
+  line-height: 1.58;
+  color: #c6ced8;
+}
+
+.article {
+  font-size: clamp(0.97rem, 1.15vw, 1.05rem);
+  line-height: 1.62;
+  color: #d2dae3;
+}
+
+.article h2 {
+  margin: 2.25rem 0 0.65rem;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  scroll-margin-top: clamp(5.5rem, 14vw, 7rem);
+}
+
+.article h2:first-of-type {
+  margin-top: 0;
+}
+
+.article h3 {
+  margin: 1.35rem 0 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #e8eef4;
+}
+
+.article p {
+  margin: 0 0 0.85rem;
+}
+
+.article ul,
+.article ol {
+  margin: 0 0 1rem;
+  padding-left: 1.35rem;
+}
+
+.article li {
+  margin: 0.35rem 0;
+}
+
+.article li::marker {
+  color: rgb(var(--color-brand-rgb) / 0.85);
+}
+
+.article strong {
+  color: #f0f4f8;
+  font-weight: 600;
+}
+
+.article a {
+  color: rgb(var(--color-brand-rgb) / 1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.article a:hover,
+.article a:focus-visible {
+  color: #bdf095;
+  outline: none;
+}
+
+.note {
+  margin: 1.25rem 0 0;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid rgb(var(--color-brand-rgb) / 0.55);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0 0.35rem 0.35rem 0;
+  font-size: 0.94rem;
+  color: #b9c6d3;
+}
+
+@media (max-width: 640px) {
+  .article ul,
+  .article ol {
+    padding-left: 1.15rem;
+  }
+}

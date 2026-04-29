@@ -1,0 +1,88 @@
+.fadeIn {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fadeInVisible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeIn {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .fadeInVisible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.staggerObserve {
+  width: 100%;
+}
+
+.staggerRootInner > * {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.staggerVisible.staggerRootInner > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.staggerVisible.staggerRootInner > *:nth-child(1) {
+  transition-delay: 0ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(2) {
+  transition-delay: 72ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(3) {
+  transition-delay: 144ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(4) {
+  transition-delay: 216ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(5) {
+  transition-delay: 288ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(6) {
+  transition-delay: 360ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(7) {
+  transition-delay: 432ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(8) {
+  transition-delay: 504ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(9) {
+  transition-delay: 576ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(10) {
+  transition-delay: 648ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(11) {
+  transition-delay: 720ms;
+}
+.staggerVisible.staggerRootInner > *:nth-child(12) {
+  transition-delay: 792ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .staggerRootInner > *,
+  .staggerVisible.staggerRootInner > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

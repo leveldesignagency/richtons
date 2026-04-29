@@ -1,0 +1,19 @@
+:root {
+  /* Change brand colour here only — the rest of the site reads these tokens. */
+  --color-brand: #4ab449;
+  --color-brand-rgb: 74 180 73;
+
+  /* Aliases (optional shorter names) */
+  --brand: var(--color-brand);
+  --brand-rgb: var(--color-brand-rgb);
+
+  --color-brand-12: rgb(var(--color-brand-rgb) / 0.12);
+  --color-brand-35: rgb(var(--color-brand-rgb) / 0.35);
+  --color-brand-42: rgb(var(--color-brand-rgb) / 0.42);
+
+  /* Focus / glow derived from the brand (adjusts if you change --color-brand) */
+  --color-brand-focus: color-mix(in srgb, var(--color-brand) 62%, #ffffff 38%);
+  --color-brand-glow: color-mix(in srgb, var(--color-brand) 40%, #ffffff 60%);
+
+  --shadow-brand-button: 0 10px 24px var(--color-brand-35);
+}

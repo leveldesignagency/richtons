@@ -1,0 +1,198 @@
+.headerShell {
+  position: fixed;
+  top: 0.35rem;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 90;
+  padding: 0.08rem 0;
+  transition:
+    background-color 0.3s ease,
+    border-radius 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    padding 0.3s ease;
+}
+
+.headerShell::before {
+  content: "";
+  position: absolute;
+  inset: 0 1.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(24, 25, 24, 0.8);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scrolled {
+}
+
+.scrolled::before {
+  opacity: 1;
+}
+
+.alwaysOverlay::before {
+  opacity: 1;
+}
+
+.noScrollOverlay::before {
+  display: none;
+}
+
+/* Contact page only (prop): edge-to-edge grey at rest; hides on scroll for normal pill (::before). */
+.headerFullBleedUntilScroll::after {
+  content: "";
+  position: absolute;
+  top: -0.35rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0;
+  /* Same charcoal as footer / section greys site-wide */
+  background: #181918;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 1;
+  transition: opacity 0.32s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.headerFullBleedUntilScroll.scrolled::after {
+  opacity: 0;
+}
+
+.headerInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 clamp(1.25rem, 4vw, 4.5rem);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo {
+  width: clamp(148px, 16vw, 210px);
+  height: auto;
+  filter: brightness(0) invert(1);
+  margin-left: -8px;
+}
+
+.menuDock {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 999px;
+  background: rgba(128, 134, 142, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  transition: width 0.35s ease;
+}
+
+.menuDock:hover,
+.menuDock:focus-within,
+.menuDockOpen {
+  width: min(78vw, 720px);
+}
+
+.menuLinks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  flex: 1;
+  white-space: nowrap;
+  margin-right: 0.25rem;
+  margin-left: 0.7rem;
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s ease;
+}
+
+.menuDock:hover .menuLinks,
+.menuDock:focus-within .menuLinks,
+.menuDockOpen .menuLinks {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menuLinks a {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-align: center;
+  flex: 1;
+  padding: 0 0.75rem;
+}
+
+.menuLinks a:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.menuLinks a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hamburger {
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  background: transparent;
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.27rem;
+  flex-shrink: 0;
+}
+
+.hamburger span {
+  width: 1.12rem;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+  display: block;
+}
+
+@media (max-width: 780px) {
+  .logo {
+    width: 144px;
+    margin-left: -6px;
+  }
+
+  .menuDock:hover,
+  .menuDock:focus-within,
+  .menuDockOpen {
+    width: min(90vw, 520px);
+  }
+
+  .menuLinks {
+    margin-right: 0.25rem;
+    margin-left: 0.35rem;
+  }
+
+  .menuLinks a {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    padding: 0 0.35rem;
+  }
+}
