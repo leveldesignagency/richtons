@@ -272,6 +272,7 @@
   width: min(100%, 34rem);
   background: #16191d;
   border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0.85rem;
   padding: 1.2rem 1.1rem 1.1rem;
   color: #f4f8fb;
 }
@@ -281,7 +282,11 @@
   right: 0.55rem;
   top: 0.4rem;
   border: 0;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  width: 2.25rem;
+  height: 2.25rem;
+  line-height: 1;
   color: #dce5ee;
   font-size: 1.6rem;
   cursor: pointer;
@@ -312,26 +317,8 @@
   margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
-}
-
-.emergencyActionPrimary,
-.emergencyActionSecondary {
-  text-decoration: none;
-  padding: 0.62rem 0.8rem;
-  font-weight: 700;
-  border: 1px solid transparent;
-}
-
-.emergencyActionPrimary {
-  background: rgb(var(--color-brand-rgb));
-  color: #0b1602;
-}
-
-.emergencyActionSecondary {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #eef4fb;
+  gap: clamp(1.1rem, 2.5vw, 1.65rem);
+  align-items: center;
 }
 
 @media (max-width: 980px) {

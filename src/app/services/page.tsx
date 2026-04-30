@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import Button from "@/components/Button";
 import FadeInOnView from "@/components/FadeInOnView";
 import FadeInStagger from "@/components/FadeInStagger";
 import SiteFooter from "@/components/SiteFooter";
@@ -165,15 +166,18 @@ export default function ServicesPage() {
               help or email your site details.
             </p>
             <div className={styles.emergencyModalActions}>
-              <a href={contact.tel} className={styles.emergencyActionPrimary}>
-                Call {contact.phoneDisplay}
-              </a>
-              <a
+              <Button
+                label={`Call ${contact.phoneDisplay}`}
+                href={contact.tel}
+                variant="primary"
+                effect="default"
+              />
+              <Button
+                label={`Email ${contact.email}`}
                 href={`mailto:${contact.email}?subject=Emergency%20Call-Out%20Request`}
-                className={styles.emergencyActionSecondary}
-              >
-                Email {contact.email}
-              </a>
+                variant="secondary"
+                effect="glow"
+              />
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import Button from "@/components/Button";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { contact } from "@/lib/contact";
@@ -251,8 +252,18 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               <h3>Speak to our team about this service today</h3>
             </div>
             <div className={styles.ctaActions}>
-              <a href={contact.tel}>Call {contact.phoneDisplay}</a>
-              <a href={`mailto:${contact.email}`}>Email {contact.email}</a>
+              <Button
+                label={`Call ${contact.phoneDisplay}`}
+                href={contact.tel}
+                variant="secondary"
+                effect="glow"
+              />
+              <Button
+                label={`Email ${contact.email}`}
+                href={`mailto:${contact.email}`}
+                variant="secondary"
+                effect="glow"
+              />
             </div>
           </article>
         </div>
