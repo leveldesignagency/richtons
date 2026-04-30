@@ -7,18 +7,10 @@
   min-height: 72vh;
   padding: clamp(4.3rem, 7.2vw, 5.5rem) clamp(1.25rem, 4vw, 4.5rem)
     clamp(2.5rem, 6vw, 5rem);
-  background:
-    linear-gradient(
-      110deg,
-      rgba(40, 45, 50, 0.62) 8%,
-      rgba(40, 45, 50, 0.28) 45%,
-      rgba(35, 40, 45, 0.62) 100%
-    ),
-    var(--hero-bg-image, url("/hero image.png"));
-  background-size: 100%;
+  background: var(--hero-bg-image, url("/hero image.png"));
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  animation: about-hero-breathe 18s ease-in-out infinite;
 }
 
 .heroContent {
@@ -341,20 +333,3 @@
   }
 }
 
-@keyframes about-hero-breathe {
-  0% {
-    background-size: 100%;
-  }
-  50% {
-    background-size: 106%;
-  }
-  100% {
-    background-size: 100%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero {
-    animation: none;
-  }
-}
