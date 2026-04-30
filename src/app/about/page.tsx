@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import FadeInOnView from "@/components/FadeInOnView";
 import FadeInStagger from "@/components/FadeInStagger";
 import SiteFooter from "@/components/SiteFooter";
@@ -8,57 +8,13 @@ import SiteHeader from "@/components/SiteHeader";
 import { aboutPageSectors as sectors } from "@/lib/about-sectors";
 import styles from "./page.module.css";
 
+const greenBandCopy =
+  "Richtons is a progressive company focused on exceptional service and sustainable practices in asbestos management, removal, surveying, and remediation.";
+
 export default function AboutPage() {
   const [activeSector, setActiveSector] = useState(0);
   const activeSectorItem = sectors[activeSector];
   const activeTitle = activeSectorItem.title;
-  const revealRef = useRef<HTMLElement | null>(null);
-  const revealTextRef = useRef<HTMLParagraphElement | null>(null);
-
-  const revealText =
-    "Richtons is a progressive company focused on exceptional service and sustainable practices in asbestos management, removal, surveying, and remediation.";
-  const revealWords = revealText.split(" ");
-
-  useEffect(() => {
-    const container = revealRef.current;
-    const textContainer = revealTextRef.current;
-    if (!container || !textContainer) return;
-
-    const words = Array.from(textContainer.querySelectorAll("span"));
-    if (!words.length) return;
-
-    const revealWordsForScroll = () => {
-      const rect = container.getBoundingClientRect();
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const start = rect.top + scrollTop;
-      // Animate in a shorter, more noticeable window after entering the band.
-      const triggerStart = 0;
-      const triggerEnd = start + rect.height * 0.08;
-      const current = window.scrollY || document.documentElement.scrollTop;
-
-      let activeWords = 0;
-      if (current <= triggerStart) {
-        activeWords = 0;
-      } else if (current >= triggerEnd) {
-        activeWords = words.length;
-      } else {
-        const progress = (current - triggerStart) / Math.max(1, triggerEnd - triggerStart);
-        activeWords = Math.round(progress * words.length);
-      }
-
-      words.forEach((word, index) => {
-        (word as HTMLElement).style.opacity = index < activeWords ? "1" : "0.12";
-      });
-    };
-
-    revealWordsForScroll();
-    window.addEventListener("scroll", revealWordsForScroll, { passive: true });
-    window.addEventListener("resize", revealWordsForScroll);
-    return () => {
-      window.removeEventListener("scroll", revealWordsForScroll);
-      window.removeEventListener("resize", revealWordsForScroll);
-    };
-  }, []);
 
   return (
     <main className={styles.page}>
@@ -111,15 +67,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section ref={revealRef} className={styles.greenBand}>
-        <p ref={revealTextRef} className={styles.greenBandCopy}>
-          {revealWords.map((word, index) => (
-            <span key={`${word}-${index}`}>
-              {word}
-              {" "}
-            </span>
-          ))}
-        </p>
+      <section className={styles.greenBand}>
+        <p className={styles.greenBandCopy}>{greenBandCopy}</p>
       </section>
 
       <section id="sectors" className={styles.sectorsSection}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./SiteHeader.module.css";
@@ -27,15 +27,48 @@ export default function SiteHeader({
   fullBleedBarUntilScroll = false,
   logoTreatment = "lightOnDark",
 }: SiteHeaderProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuDockRef = useRef<HTMLElement | null>(null);
+  const headerShellRef = useRef<HTMLElement | null>(null);
+  /** Hysteresis avoids true/false thrash at ~24px (trackpad bounce → fewer repaints / no React scroll work). */
+  const scrolledPastRef = useRef(false);
 
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+  useLayoutEffect(() => {
+    const el = headerShellRef.current;
+    if (!el) return;
+
+    let rafId = 0;
+
+    const syncScrolledClass = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      let next = scrolledPastRef.current;
+      if (scrolledPastRef.current) {
+        if (y < 6) next = false;
+      } else {
+        if (y > 32) next = true;
+      }
+      if (next !== scrolledPastRef.current) {
+        scrolledPastRef.current = next;
+        el.classList.toggle(styles.scrolled, next);
+      }
+    };
+
+    const schedule = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        syncScrolledClass();
+      });
+    };
+
+    syncScrolledClass();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   useEffect(() => {
@@ -59,7 +92,8 @@ export default function SiteHeader({
 
   return (
     <header
-      className={`${styles.headerShell} ${isScrolled ? styles.scrolled : ""} ${
+      ref={headerShellRef}
+      className={`${styles.headerShell} ${
         disableScrollOverlay ? styles.noScrollOverlay : ""
       } ${alwaysShowOverlay ? styles.alwaysOverlay : ""} ${
         fullBleedBarUntilScroll ? styles.headerFullBleedUntilScroll : ""

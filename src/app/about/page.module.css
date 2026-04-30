@@ -126,13 +126,7 @@
   text-align: left;
   max-width: 46rem;
   white-space: normal;
-}
-
-.greenBandCopy span {
-  display: inline;
   color: #f4f6f8;
-  opacity: 0.12;
-  transition: opacity 0.22s linear;
 }
 
 .sectorsSection {
