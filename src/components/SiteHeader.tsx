@@ -16,6 +16,8 @@ type SiteHeaderProps = {
   alwaysShowOverlay?: boolean;
   /** Full-width grey bar while at top; fades off on scroll so the default pill header can show. */
   fullBleedBarUntilScroll?: boolean;
+  /** Default inverts logo to white for dark pages; `brand` keeps SVG fills (e.g. light backgrounds). */
+  logoTreatment?: "lightOnDark" | "brand";
 };
 
 export default function SiteHeader({
@@ -23,6 +25,7 @@ export default function SiteHeader({
   disableScrollOverlay = false,
   alwaysShowOverlay = false,
   fullBleedBarUntilScroll = false,
+  logoTreatment = "lightOnDark",
 }: SiteHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,7 +73,7 @@ export default function SiteHeader({
             width={220}
             height={56}
             priority
-            className={styles.logo}
+            className={`${styles.logo} ${logoTreatment === "brand" ? styles.logoBrand : ""}`.trim()}
           />
         </Link>
 

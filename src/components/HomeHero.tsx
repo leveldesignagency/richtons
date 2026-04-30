@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import Button from "@/components/Button";
 import { serviceDetails } from "@/lib/services";
 import styles from "@/app/page.module.css";
@@ -23,9 +28,25 @@ const HOME_HERO_SLIDES = serviceDetails.map((service) => ({
 }));
 
 const IDLE_FULLSCREEN_MS = 5000;
-/** Matches portrait mask transition on `.heroImageClip` (~1.15s). */
+/** Must stay in sync with `transition` duration on `.heroImageClip` / `.heroBadgeAnchor` (1.15s). */
 const LAYOUT_TRANSITION_MS = 1150;
 const SLIDE_DWELL_MS = 4500;
+
+/** Indices to visit once composed layout is visible — skips duplicate dwell on slide 0 (already shown after transition). */
+function carouselIndices(length: number): number[] {
+  if (length <= 1) return length === 1 ? [0] : [];
+  return [...Array.from({ length: length - 1 }, (_, k) => k + 1), 0];
+}
+
+function subscribeMobileHero(callback: () => void) {
+  const mq = window.matchMedia("(max-width: 780px)");
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
+function getMobileHeroSnapshot() {
+  return window.matchMedia("(max-width: 780px)").matches;
+}
 
 function sleep(ms: number, signal?: AbortSignal): Promise<void> {
   return new Promise((resolve) => {
@@ -47,7 +68,21 @@ export default function HomeHero() {
   const [slideIndex, setSlideIndex] = useState(0);
   const cycleAbortRef = useRef<AbortController | null>(null);
 
+  const staticHeroMobile = useSyncExternalStore(
+    subscribeMobileHero,
+    getMobileHeroSnapshot,
+    () => false,
+  );
+
   useEffect(() => {
+    if (!staticHeroMobile) return;
+    setComposed(false);
+    setSlideIndex(0);
+  }, [staticHeroMobile]);
+
+  useEffect(() => {
+    if (staticHeroMobile) return;
+
     cycleAbortRef.current?.abort();
     const controller = new AbortController();
     cycleAbortRef.current = controller;
@@ -61,7 +96,7 @@ export default function HomeHero() {
         await sleep(LAYOUT_TRANSITION_MS, signal);
         if (signal.aborted) break;
 
-        const sequence = [...HOME_HERO_SLIDES.map((_, i) => i), 0];
+        const sequence = carouselIndices(HOME_HERO_SLIDES.length);
         for (const i of sequence) {
           setSlideIndex(i);
           await sleep(SLIDE_DWELL_MS, signal);
@@ -76,7 +111,7 @@ export default function HomeHero() {
 
     runCycle();
     return () => controller.abort();
-  }, []);
+  }, [staticHeroMobile]);
 
   const slide = HOME_HERO_SLIDES[slideIndex];
 
@@ -89,6 +124,7 @@ export default function HomeHero() {
         <div className={styles.heroGreenShape} aria-hidden />
         <div className={styles.heroImageClip}>
           <Image
+            key={slideIndex}
             src={slide.src}
             alt={slide.alt}
             fill
@@ -99,6 +135,7 @@ export default function HomeHero() {
         </div>
         <div className={styles.heroBadgeAnchor}>
           <Link
+            key={slideIndex}
             href={slide.serviceHref}
             className={styles.heroMiniBadge}
             aria-label={`${slide.title}: ${slide.caption}`}

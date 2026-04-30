@@ -1,3 +1,7 @@
+.afterReveal {
+  will-change: opacity, transform;
+}
+
 .wordsWrap {
   display: inline;
 }

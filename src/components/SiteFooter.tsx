@@ -28,7 +28,7 @@ export default function SiteFooter({
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
         <Link href={servicesHref}>Services</Link>
-        <Link href="/news">Projects</Link>
+        <Link href="/projects">Projects</Link>
         <Link href="/contact">Contact</Link>
       </nav>
 

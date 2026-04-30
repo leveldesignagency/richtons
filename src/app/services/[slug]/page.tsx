@@ -89,7 +89,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           links={[
             { label: "About", href: "/about" },
             { label: "Services", href: "/services" },
-            { label: "Projects", href: "/news" },
+            { label: "Projects", href: "/projects" },
             { label: "Contact", href: "/contact" },
           ]}
         />
@@ -109,7 +109,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         links={[
           { label: "About", href: "/about" },
           { label: "Services", href: "/services" },
-          { label: "Projects", href: "/news" },
+          { label: "Projects", href: "/projects" },
           { label: "Contact", href: "/contact" },
         ]}
       />

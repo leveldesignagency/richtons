@@ -176,6 +176,15 @@
   }
 }
 
+/* Mobile-only: safe areas (notch / home indicator). No effect ≥781px. */
+@media (max-width: 780px) {
+  .hero {
+    padding-left: calc(env(safe-area-inset-left, 0px) + clamp(1rem, 4vw, 4.5rem));
+    padding-right: calc(env(safe-area-inset-right, 0px) + clamp(1rem, 4vw, 4.5rem));
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(3rem, 8vw, 7rem));
+  }
+}
+
 .topBar {
   display: flex;
   justify-content: space-between;
@@ -316,18 +325,159 @@
 }
 
 .needToKnow {
-  padding: clamp(2.5rem, 8vw, 5.5rem) clamp(1.25rem, 4vw, 4.5rem);
-  min-height: clamp(360px, 48vh, 560px);
-  background: var(--color-brand);
+  --nk-green: 70%;
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  min-height: clamp(26rem, 75vh, 56rem);
+  padding: 0;
   color: #050505;
+}
+
+/* Full-bleed photo + grid / noise (only visible where green pane doesn’t cover) */
+.needToKnowMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.needToKnowBgImageWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.needToKnowBgImage {
+  position: absolute;
+  inset: -6%;
+  background-image: url("/surveying.jpg");
+  background-size: cover;
+  background-position: 68% center;
+  filter: blur(14px);
+  transform-origin: 56% 50%;
+  animation: need-to-know-bg-breathe 18s ease-in-out infinite;
+}
+
+@keyframes need-to-know-bg-breathe {
+  0%,
+  100% {
+    transform: scale(1.04);
+  }
+
+  50% {
+    transform: scale(1.13);
+  }
+}
+
+/* Duplicate silhouette behind pane — drop-shadow follows canted clip without filtering text */
+.needToKnowGreenShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: var(--nk-green);
+  max-width: 100%;
+  pointer-events: none;
+  background: var(--color-brand);
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  filter: drop-shadow(14px 14px 32px rgba(0, 0, 0, 0.45))
+    drop-shadow(6px 8px 18px rgba(0, 0, 0, 0.28));
+}
+
+/* Grid + grain sit on the photograph only */
+.needToKnowGrain {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(4px - 1px),
+      rgba(250, 252, 250, 0.1) calc(4px - 1px),
+      rgba(250, 252, 250, 0.1) 4px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent calc(4px - 1px),
+      rgba(250, 252, 250, 0.1) calc(4px - 1px),
+      rgba(250, 252, 250, 0.1) 4px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: auto, auto, 180px 180px;
+  opacity: 0.72;
+}
+
+/* ~70% solid brand; canted seam shared with SVG stroke (100,0)-(82,100) */
+.needToKnowGreenPane {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: var(--nk-green);
+  max-width: 100%;
+  padding: clamp(2.75rem, 6vw, 4.5rem) clamp(1.25rem, 3.5vw, 2.75rem)
+    clamp(2.75rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 4.5rem);
+  background: var(--color-brand);
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+}
+
+.needToKnowDiagonalStroke {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/*
+ * Duplicate hero shot: anchored near diagonal seam, nudged onto photo side; scaled up.
+ */
+.needToKnowFloatingPhoto {
+  --nk-float-parallax-y: 0px;
+  position: absolute;
+  left: calc(var(--nk-green) * 0.955);
+  top: 50%;
+  z-index: 5;
+  width: clamp(380px, 54vw, 680px);
+  aspect-ratio: 3 / 2;
+  transform: translate(
+    calc(-50% + min(2vw, 1.75rem)),
+    calc(-50% + var(--nk-float-parallax-y))
+  );
+  will-change: transform;
+  border-radius: 0 clamp(18px, 2.8vw, 36px) 0 0;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.42),
+    0 6px 16px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.needToKnowFloatingImg {
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.needToKnowForeground {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  flex: 1;
+  min-height: 0;
 }
 
 .needToKnowContent {
-  max-width: 62rem;
+  max-width: min(36rem, 100%);
 }
 
 .needToKnow h2,
@@ -340,9 +490,23 @@
   color: #050505;
 }
 
+.needToKnowDeferredHighlightsWrap {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.62s ease,
+    transform 0.62s ease;
+}
+
+.needToKnowDeferredHighlightsWrapVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .needToKnowLead {
+  max-width: 36rem;
   font-size: clamp(1.22rem, 2.35vw, 1.42rem);
-  line-height: 1.46;
+  line-height: 1.52;
   font-weight: 500;
   letter-spacing: -0.015em;
   color: #090909;
@@ -350,44 +514,51 @@
 
 .needToKnowHighlights {
   margin-top: 1.3rem;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 30rem;
+  border-top: 1px solid rgba(24, 25, 24, 0.38);
 }
 
 .needToKnowHighlights p {
   margin: 0;
-  padding: 0.42rem 0.72rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.88);
-  color: #ffffff;
-  font-size: clamp(0.7rem, 0.95vw, 0.82rem);
-  font-weight: 700;
-  letter-spacing: 0.015em;
-  line-height: 1.1;
-  text-align: center;
+  padding: 0.78rem 0.1rem;
+  border-bottom: 1px solid rgba(24, 25, 24, 0.38);
+  color: #111315;
+  font-size: clamp(0.94rem, 1.12vw, 1.02rem);
+  font-weight: 600;
+  letter-spacing: 0.008em;
+  line-height: 1.24;
+  text-align: left;
   text-transform: uppercase;
-  /* Same charcoal as “The Work We Do” / site sections */
-  background-color: #181918;
-  background-image: linear-gradient(
-    105deg,
-    transparent 38%,
-    rgba(255, 255, 255, 0.15) 50%,
-    transparent 62%
-  );
-  background-size: 260% 100%;
-  background-position: 135% 0;
-  transition: background-position 0.85s cubic-bezier(0.19, 1, 0.22, 1);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.48s ease,
+    transform 0.48s ease;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .needToKnowHighlights p:hover {
-    background-position: -55% 0;
-  }
+.needToKnowDeferredHighlightsWrapVisible .needToKnowHighlights p:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.12s;
+}
+
+.needToKnowDeferredHighlightsWrapVisible .needToKnowHighlights p:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.24s;
+}
+
+.needToKnowDeferredHighlightsWrapVisible .needToKnowHighlights p:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.36s;
 }
 
 .learnMoreWrap {
-  align-self: flex-end;
+  align-self: flex-start;
 }
 
 /* Green canvas only: charcoal fill like #services — glow hover keeps outline-offset + outer shine; inner inset removed vs default .glow */
@@ -423,6 +594,10 @@
 
 .sectionHeader :global(a) {
   margin-top: 0.3rem;
+}
+
+.servicesFooterViewAllMobile {
+  display: none;
 }
 
 .servicesGrid {
@@ -703,7 +878,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: clamp(2rem, 4.5vw, 3rem);
 }
 
 .teamSection h2,
@@ -720,18 +895,23 @@
 }
 
 .teamGrid {
+  --team-grid-inline-inset: max(8px, 0.35rem);
+  /* Room inside scrollport for hover translateY + scale + shadow — overflow-x:auto forces vertical clipping */
+  --team-grid-pad-block-start: clamp(14px, 1.35rem, 22px);
+  --team-grid-pad-block-end: clamp(18px, 1.65rem, 32px);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: clamp(0.85rem, 1.5vw, 1.15rem);
   overflow-x: auto;
   overflow-y: visible;
-  padding: 0.35rem 0.15rem 0.65rem;
-  margin: 0 -0.15rem;
+  padding: var(--team-grid-pad-block-start) var(--team-grid-inline-inset)
+    var(--team-grid-pad-block-end);
+  margin: 0 calc(-1 * var(--team-grid-inline-inset));
   min-width: 0;
   width: 100%;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 0.15rem;
+  scroll-padding-inline: var(--team-grid-inline-inset);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -745,25 +925,60 @@
 }
 
 .teamCard {
+  --team-card-scale: 1;
+  --team-card-z: 1;
   flex: 0 0 clamp(17.75rem, 28vw, 22.5rem);
   scroll-snap-align: start;
-  background: #232529;
+  position: relative;
+  z-index: var(--team-card-z);
+  background: transparent;
   border-radius: 1rem;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.12);
   min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
+  transform: scale(var(--team-card-scale));
+  transform-origin: center center;
   transition:
-    transform 0.28s ease,
     border-color 0.28s ease,
     box-shadow 0.28s ease;
 }
 
+/* Clip photo/body/shimmer inside this shell so border + radius aren’t masked by overflow on the scaled article (fixes left-edge stroke on first card). */
+.teamCardInner {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: calc(1rem - 1px);
+  overflow: hidden;
+  isolation: isolate;
+  background: #232529;
+}
+
+.teamCardShimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: inherit;
+  background: linear-gradient(
+    118deg,
+    transparent 34%,
+    rgba(255, 255, 255, 0.26) 47%,
+    rgba(255, 255, 255, 0.12) 53%,
+    transparent 66%
+  );
+  background-size: 280% 100%;
+  mix-blend-mode: screen;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .teamCard:hover {
-    transform: translateY(-4px);
+    transform: scale(calc(var(--team-card-scale, 1) * 1.012)) translateY(-4px);
     border-color: rgba(var(--color-brand-rgb), 0.38);
     box-shadow:
       0 18px 36px rgba(0, 0, 0, 0.38),
@@ -911,16 +1126,18 @@
 }
 
 .valueCard {
+  --value-scroll-y: 0px;
   display: flex;
   flex-direction: column;
   min-width: 0;
   min-height: 100%;
   border-radius: 0.95rem;
-  padding: 0.95rem 0.95rem 1rem;
+  padding: 0;
   background: #232529;
   border: 1px solid rgba(255, 255, 255, 0.12);
   position: relative;
   z-index: 0;
+  transform: translateY(var(--value-scroll-y));
   transition:
     transform 0.42s cubic-bezier(0.19, 1, 0.22, 1),
     filter 0.42s ease,
@@ -929,16 +1146,25 @@
     border-color 0.3s ease;
 }
 
+.valueCardInner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0.95rem 0.95rem 1rem;
+  border-radius: inherit;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .valuesGrid:has(.valueCard:hover) .valueCard:not(:hover) {
     filter: blur(6px);
     opacity: 0.48;
-    transform: scale(0.96);
+    transform: translateY(var(--value-scroll-y)) scale(0.96);
   }
 
   .valueCard:hover {
     z-index: 2;
-    transform: scale(1.06);
+    transform: translateY(var(--value-scroll-y)) scale(1.06);
     border-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 22px 44px rgba(0, 0, 0, 0.42);
   }
@@ -1000,38 +1226,158 @@
 }
 
 @media (max-width: 780px) {
-  .nav {
-    gap: 0.75rem;
+  /* Hero — centered copy; static image only (see HomeHero.tsx); narrower CTAs */
+  .heroInner {
+    justify-items: center;
+  }
+
+  .heroContent {
+    text-align: center;
+    margin-inline: auto;
+    max-width: 26rem;
   }
 
   .heroActions {
     width: 100%;
+    max-width: 17.5rem;
+    margin-inline: auto;
+    justify-content: center;
+    gap: 0.85rem;
   }
 
-  .heroActions a {
+  .heroActions :global(a) {
+    width: auto !important;
+    flex: 1 1 45%;
+    max-width: 8.35rem;
+    min-width: 0;
+    padding-inline: 0.85rem !important;
+    font-size: 0.92rem !important;
+    min-height: 2.85rem !important;
+  }
+
+  .nav {
+    gap: 0.75rem;
+  }
+
+  /* Everything you need to know — stack: copy, then photo strip */
+  .needToKnow {
+    display: flex;
+    flex-direction: column;
+    min-height: clamp(22rem, 72vh, 40rem);
+  }
+
+  .needToKnowMedia {
+    position: relative;
+    flex: 0 0 auto;
+    order: 2;
+    height: min(40vh, 280px);
+    min-height: 200px;
+  }
+
+  .needToKnowGrain {
+    opacity: 0.62;
+  }
+
+  .needToKnowGreenShadow {
+    display: none;
+  }
+
+  .needToKnowGreenPane {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    order: 1;
     width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    clip-path: none;
+    padding: clamp(3rem, 11vw, 4.25rem) clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .needToKnowDiagonalStroke {
+    display: none;
+  }
+
+  .needToKnowFloatingPhoto {
+    display: none;
+  }
+
+  .needToKnowForeground {
+    gap: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .needToKnowContent {
+    margin-inline: auto;
+    text-align: center;
+    max-width: min(34rem, 100%);
+  }
+
+  .needToKnowLead {
+    margin-inline: auto;
+    max-width: min(34rem, 100%);
+  }
+
+  .needToKnowHighlights {
+    margin-top: 1.85rem;
+    max-width: min(100%, 21rem);
+    margin-inline: auto;
+  }
+
+  .needToKnowHighlights p {
+    font-size: clamp(0.96rem, 4vw, 1.06rem);
+    padding: 0.8rem 0;
+    text-align: center;
+  }
+
+  .learnMoreWrap {
+    align-self: center;
+    margin-top: 0.65rem;
+  }
+
+  /* The Work We Do — title centered; View all only after cards */
+  .servicesHeaderViewAllDesktop {
+    display: none !important;
+  }
+
+  .servicesFooterViewAllMobile {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
   }
 
   .sectionHeader {
     flex-direction: column;
-    margin-bottom: 1rem;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1.85rem;
+    gap: 0.85rem;
   }
 
   .servicesSection {
+    padding: clamp(3rem, 10vw, 4.75rem) clamp(1.25rem, 5vw, 2rem);
     min-height: auto;
   }
 
   .servicesGrid {
     grid-template-columns: 1fr;
     min-height: auto;
+    gap: 1.45rem;
   }
 
-  .coreServiceCard {
+  .coreServiceCard,
+  .serviceCard {
     min-height: 380px;
   }
 
   .rightCardsGrid {
     grid-template-columns: 1fr;
+    gap: 1.45rem;
+  }
+
+  .serviceCardLink {
+    width: 100%;
   }
 
   .marqueeTrack {
@@ -1039,52 +1385,33 @@
     padding: 0.9rem 0;
   }
 
-  .needToKnow {
-    min-height: 380px;
-  }
-
-  .needToKnowHighlights {
-    grid-template-columns: 1fr;
-  }
-
-  .emergencyVisual {
-    width: clamp(180px, 44vw, 280px);
-    height: clamp(180px, 44vw, 280px);
-    opacity: 1;
-  }
-
+  /* Thin green separator — keeps brand stripe between sections */
   .emergencyBand {
-    grid-template-columns: 1fr;
-    align-items: center;
+    height: 5px !important;
+    min-height: 5px !important;
+    max-height: 5px !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    grid-template-columns: 1fr !important;
+    align-items: stretch !important;
+    border: none;
   }
 
+  .emergencyVisual,
   .emergencyContent {
-    position: relative;
-    left: auto;
-    top: auto;
-    min-height: auto;
-    max-width: 100%;
-    transform: none;
-    justify-self: center;
-    z-index: 3;
+    display: none !important;
   }
 
-  .emergencyVisual {
-    grid-column: 1;
-    justify-self: center;
-    margin-bottom: 0;
+  /* Meet the team — centered heading block */
+  .teamSectionHeader {
+    text-align: center;
   }
 
-  .emergencyStatement,
-  .emergencyStatementReveal {
-    max-width: 24ch;
-    font-size: clamp(1.55rem, 6vw, 2.1rem);
-    line-height: 1.16;
-  }
-
-  .emergencyServicesMask {
-    width: min(100%, 24rem);
-    margin-top: 0.8rem;
+  .teamSectionIntro {
+    margin-inline: auto;
+    max-width: 38rem;
   }
 
   .logoPill {
@@ -1120,6 +1447,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .needToKnowFloatingPhoto {
+    --nk-float-parallax-y: 0px !important;
+    will-change: auto;
+  }
+
+  .needToKnowBgImage {
+    animation: none;
+    transform: scale(1.06);
+  }
+
+  .teamCardShimmer {
+    display: none !important;
+  }
+
   .heroFullscreenBg {
     animation: none;
     transition: none;
@@ -1188,13 +1529,23 @@
     box-shadow: none;
   }
 
+  .needToKnowDeferredHighlightsWrap,
+  .needToKnowDeferredHighlightsWrapVisible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .needToKnowHighlights p,
   .needToKnowHighlights p:hover {
+    opacity: 1;
+    transform: none;
     transition: none;
-    background-position: 135% 0;
   }
 
   .teamCard {
+    --team-card-scale: 1 !important;
+    --team-card-z: 1 !important;
     transition: none;
   }
 
@@ -1202,6 +1553,10 @@
     transform: none;
     box-shadow: none;
     border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .valueCard {
+    --value-scroll-y: 0px !important;
   }
 }
 

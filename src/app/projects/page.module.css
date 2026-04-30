@@ -1,0 +1,29 @@
+.page {
+  min-height: 100svh;
+  background: #ffffff;
+  color: #1a1d21;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  background: #ffffff;
+  /* Clears fixed SiteHeader so titles aren’t tucked under the pill */
+  padding-top: calc(env(safe-area-inset-top, 0px) + clamp(5rem, 11vw, 7rem));
+}
+
+.projectsBody {
+  display: grid;
+  grid-template-columns: minmax(13.5rem, 16.25rem) minmax(0, 1fr);
+  gap: clamp(1.35rem, 3.5vw, 2.85rem);
+  padding: 0 clamp(1.25rem, 4vw, 4.5rem) clamp(2.25rem, 5vw, 3.25rem);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .projectsBody {
+    grid-template-columns: 1fr;
+    padding-inline: clamp(1.25rem, 5vw, 2rem);
+  }
+}

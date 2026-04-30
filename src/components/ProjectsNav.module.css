@@ -1,0 +1,129 @@
+.nav {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + clamp(5.25rem, 11vw, 7rem));
+  align-self: start;
+}
+
+.navInner {
+  border: 1px solid #dfe3e8;
+  border-radius: 0;
+  background: #fafbfc;
+}
+
+.navCaption {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #6b7682;
+  border-bottom: 1px solid #dfe3e8;
+  background: #f4f6f8;
+}
+
+.headRow {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) 2.75rem;
+  gap: 0.35rem 0.5rem;
+  align-items: baseline;
+  padding: 0.45rem 0.75rem 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8b959f;
+  border-bottom: 1px solid #dfe3e8;
+}
+
+.headYear {
+  text-align: right;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  margin: 0;
+  border-bottom: 1px solid #e8ecf0;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) 2.75rem;
+  gap: 0.35rem 0.5rem;
+  align-items: baseline;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.28;
+  color: #0f1215;
+  text-decoration: none;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.22em;
+  transition:
+    color 0.22s ease,
+    text-decoration-color 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.idx {
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: #6b7682;
+  transition: color 0.22s ease;
+}
+
+.title {
+  min-width: 0;
+}
+
+.year {
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #6b7682;
+  text-align: right;
+  transition: color 0.22s ease;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: rgb(var(--color-brand-rgb) / 0.55);
+  background: rgba(var(--color-brand-rgb) / 0.06);
+  outline: none;
+}
+
+.link:hover .idx,
+.link:hover .year,
+.link:focus-visible .idx,
+.link:focus-visible .year {
+  color: rgb(var(--color-brand-rgb) / 0.78);
+}
+
+.link:focus-visible {
+  box-shadow: inset 0 0 0 2px rgb(var(--color-brand-rgb) / 0.35);
+}
+
+@media (max-width: 900px) {
+  .nav {
+    position: static;
+    top: auto;
+  }
+
+  .navInner {
+    max-height: none;
+  }
+}

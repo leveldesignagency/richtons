@@ -56,10 +56,10 @@ const SITE_MAP_COLUMNS: MapColumn[] = [
     })),
   },
   {
-    href: "/news",
+    href: "/projects",
     label: "Projects",
-    description: "News & updates",
-    sublinks: [{ label: "News & project updates", href: "/news" }],
+    description: "Featured programmes",
+    sublinks: [{ label: "Selected project work", href: "/projects" }],
   },
   {
     href: "/contact",
@@ -86,7 +86,7 @@ export default function SiteMapPage() {
         links={[
           { label: "About", href: "/about" },
           { label: "Services", href: "/services" },
-          { label: "Projects", href: "/news" },
+          { label: "Projects", href: "/projects" },
           { label: "Contact", href: "/contact" },
         ]}
       />

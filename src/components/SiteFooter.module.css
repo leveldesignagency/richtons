@@ -199,6 +199,13 @@
 }
 
 @media (max-width: 780px) {
+  .footer {
+    padding-top: clamp(1.6rem, 4vw, 2.4rem);
+    padding-left: calc(env(safe-area-inset-left, 0px) + clamp(1.25rem, 4vw, 4rem));
+    padding-right: calc(env(safe-area-inset-right, 0px) + clamp(1.25rem, 4vw, 4rem));
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(1.6rem, 4vw, 2.4rem));
+  }
+
   .footerNav {
     flex-direction: column;
     flex-wrap: nowrap;

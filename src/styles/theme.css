@@ -1,3 +1,9 @@
+/*
+ * Mobile layout work: put phone/tablet tweaks only inside
+ * `@media (max-width: 780px)` (or narrower). Do not change base rules
+ * outside those queries unless the change is explicitly global (e.g. tokens).
+ */
+
 :root {
   /* Change brand colour here only — the rest of the site reads these tokens. */
   --color-brand: #4ab449;
