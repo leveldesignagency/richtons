@@ -1,4 +1,4 @@
-/* Green canvas — contact-only; main nav stays in SiteHeader */
+/* Green canvas ; contact-only; main nav stays in SiteHeader */
 .page {
   min-height: 100svh;
   color: #f4f6f8;
@@ -411,5 +411,16 @@
 @media (max-width: 520px) {
   .formRow2 {
     gap: 1.1rem;
+  }
+
+  /* Mobile simplification: hide email + address icons, keep phone icon */
+  .detailItem:nth-of-type(2) .detailIcon,
+  .detailItem:nth-of-type(3) .detailIcon {
+    display: none;
+  }
+
+  .detailItem:nth-of-type(2),
+  .detailItem:nth-of-type(3) {
+    gap: 0;
   }
 }

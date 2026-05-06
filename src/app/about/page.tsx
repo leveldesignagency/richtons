@@ -3,6 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import FadeInOnView from "@/components/FadeInOnView";
 import FadeInStagger from "@/components/FadeInStagger";
+import RevealWordsOnScroll from "@/components/RevealWordsOnScroll";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { aboutPageSectors as sectors } from "@/lib/about-sectors";
@@ -68,7 +69,13 @@ export default function AboutPage() {
       </section>
 
       <section className={styles.greenBand}>
-        <p className={styles.greenBandCopy}>{greenBandCopy}</p>
+        <RevealWordsOnScroll
+          as="p"
+          tone="dark"
+          revealTiming="late"
+          text={greenBandCopy}
+          className={styles.greenBandCopy}
+        />
       </section>
 
       <section id="sectors" className={styles.sectorsSection}>

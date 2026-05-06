@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./SiteHeader.module.css";
 
 type HeaderLink = {
@@ -30,6 +31,7 @@ export default function SiteHeader({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuDockRef = useRef<HTMLElement | null>(null);
   const headerShellRef = useRef<HTMLElement | null>(null);
+  const pathname = usePathname();
   /** Hysteresis avoids true/false thrash at ~24px (trackpad bounce → fewer repaints / no React scroll work). */
   const scrolledPastRef = useRef(false);
 
@@ -121,11 +123,27 @@ export default function SiteHeader({
               <Link
                 key={`${link.label}-${link.href}`}
                 href={link.href}
+                className={styles.menuLink}
+                data-active={
+                  pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(`${link.href}/`))
+                    ? "true"
+                    : "false"
+                }
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
+            <div className={styles.menuFooter} aria-hidden>
+              <Image
+                src="/header logo richtons.svg"
+                alt=""
+                width={210}
+                height={54}
+                className={styles.menuFooterLogo}
+              />
+            </div>
           </div>
           <button
             className={styles.hamburger}

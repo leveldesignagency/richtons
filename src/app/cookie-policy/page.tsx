@@ -54,7 +54,7 @@ export default function CookiePolicyPage() {
                 Cookies are small text files stored on your device when you visit a
                 website. They often include an identifier and help sites remember
                 preferences, maintain secure sessions, or understand how pages are used.
-                Similar technologies include local storage and pixels — we refer to them
+                Similar technologies include local storage and pixels, we refer to them
                 collectively as “cookies” below unless stated otherwise.
               </p>
             </section>
@@ -63,7 +63,7 @@ export default function CookiePolicyPage() {
               <h2 id="c-how">2. How we use cookies</h2>
               <p>
                 We use cookies where necessary to deliver the site reliably and securely,
-                and — where we introduce optional analytics or marketing tools — only with
+                and, where we introduce optional analytics or marketing tools, only with
                 an appropriate lawful basis under UK GDPR (typically consent for
                 non-essential cookies).
               </p>
@@ -82,7 +82,7 @@ export default function CookiePolicyPage() {
 
               <h3>Functional (where enabled)</h3>
               <p>
-                May remember UI preferences or optional settings you choose — only where
+                May remember UI preferences or optional settings you choose, only where
                 implemented on our site.
               </p>
 
@@ -96,7 +96,7 @@ export default function CookiePolicyPage() {
 
               <h3>Marketing (where enabled)</h3>
               <p>
-                Would support relevance measurement across campaigns — only if we deploy
+                Would support relevance measurement across campaigns, only if we deploy
                 such tools and obtain consent where legally required.
               </p>
             </section>
@@ -146,7 +146,7 @@ export default function CookiePolicyPage() {
                   still be set during the session);
                 </li>
                 <li>
-                  contact us if you have questions about optional cookies we operate —
+                  contact us if you have questions about optional cookies we operate,
                   non-essential cookies should support granular consent where supplied via a
                   banner or preference centre when deployed.
                 </li>
@@ -175,7 +175,7 @@ export default function CookiePolicyPage() {
 
             <p className={styles.note}>
               Align this policy with any consent banner or analytics vendor factsheets you
-              adopt — update cookie inventories whenever marketing or analytics scripts are
+              adopt, update cookie inventories whenever marketing or analytics scripts are
               added to the site.
             </p>
           </article>

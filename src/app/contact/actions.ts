@@ -36,6 +36,6 @@ export async function submitContact(
 
   return {
     ok: true,
-    message: "Thanks — we have received your message and will be in touch shortly.",
+    message: "Thanks, we have received your message and will be in touch shortly.",
   };
 }

@@ -24,7 +24,7 @@ export default function ProjectsPage() {
         <ProjectsIntroClient
           eyebrow="Featured programmes"
           title="Projects"
-          lead="Representative work across education, housing, healthcare, and industrial sites — planned for containment, clearance evidence, and minimal disruption to occupants."
+          lead="A selection of live case studies across education, housing, hospitality, retail, and public-sector estates, delivered with strict controls, clear communication, and programme certainty."
         />
         <div className={styles.projectsBody}>
           <ProjectsNav projects={featuredProjects} />

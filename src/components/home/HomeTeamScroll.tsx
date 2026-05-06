@@ -1,7 +1,6 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import RevealWordsOnScroll from "@/components/RevealWordsOnScroll";
 import { useSectionScrollProgress } from "@/hooks/useSectionScrollProgress";
 import {
@@ -48,15 +47,9 @@ export default function HomeTeamScroll({ members }: HomeTeamScrollProps) {
 
       <div className={styles.teamGrid}>
         {members.map((member, index) => {
-          const initials = member.name
-            .split(" ")
-            .map((part) => part[0])
-            .join("")
-            .slice(0, 2);
-
           const local = sliceProgressSnappy(gated, index, n, 0.06, 0.2);
           const t = smoothstep(0, 1, local);
-          /** Very subtle forward pop — depth reads as z-index + slight scale */
+          /** Very subtle forward pop ; depth reads as z-index + slight scale */
           const scale = 0.993 + t * 0.017;
           const zIndex = 1 + index + Math.round(t * 28);
 
@@ -81,27 +74,10 @@ export default function HomeTeamScroll({ members }: HomeTeamScrollProps) {
                   }}
                   aria-hidden
                 />
-                <div className={styles.teamCardVisual}>
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt=""
-                      fill
-                      className={styles.teamCardPhoto}
-                      sizes="(max-width: 960px) 90vw, (max-width: 1400px) 30vw, 360px"
-                    />
-                  ) : (
-                    <span className={styles.teamAvatarInitial} aria-hidden>
-                      {initials}
-                    </span>
-                  )}
-                </div>
+                <div className={styles.teamCardVisual} aria-hidden />
                 <div className={styles.teamCardBody}>
                   <h3>{member.name}</h3>
                   <p className={styles.teamRole}>{member.role}</p>
-                  <a className={styles.teamEmail} href={`mailto:${encodeURIComponent(member.copyEmail)}`}>
-                    {member.email}
-                  </a>
                 </div>
               </div>
             </article>

@@ -370,7 +370,7 @@
   }
 }
 
-/* Duplicate silhouette behind pane — drop-shadow follows canted clip without filtering text */
+/* Duplicate silhouette behind pane; drop-shadow follows canted clip without filtering text */
 .needToKnowGreenShadow {
   position: absolute;
   left: 0;
@@ -561,7 +561,7 @@
   align-self: flex-start;
 }
 
-/* Green canvas only: charcoal fill like #services — glow hover keeps outline-offset + outer shine; inner inset removed vs default .glow */
+/* Green canvas only: charcoal fill like #services; glow hover keeps outline-offset + outer shine, inner inset removed vs default .glow */
 .needToKnow .learnMoreWrap :global(a) {
   background-color: #181918 !important;
   color: #f4f6f8;
@@ -569,7 +569,7 @@
 
 .needToKnow .learnMoreWrap :global(a:hover) {
   background-color: #252830 !important;
-  /* Same outer glow as .glow:hover in Button.module.css — omit inset shadow */
+  /* Same outer glow as .glow:hover in Button.module.css; omit inset shadow */
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.18) !important;
 }
 
@@ -812,7 +812,7 @@
   visibility: visible !important;
 }
 
-/* Progressive word reveal — keep typography; inactive words use toneGreen spans */
+/* Progressive word reveal; keep typography, inactive words use toneGreen spans */
 .emergencyStatementReveal {
   display: block;
   margin: 0;
@@ -896,7 +896,7 @@
 
 .teamGrid {
   --team-grid-inline-inset: max(8px, 0.35rem);
-  /* Room inside scrollport for hover translateY + scale + shadow — overflow-x:auto forces vertical clipping */
+  /* Room inside scrollport for hover translateY + scale + shadow; overflow-x:auto forces vertical clipping */
   --team-grid-pad-block-start: clamp(14px, 1.35rem, 22px);
   --team-grid-pad-block-end: clamp(18px, 1.65rem, 32px);
   display: flex;
@@ -986,14 +986,14 @@
   }
 }
 
-/* Image area on top — placeholder + outward (convex) bottom curve into body */
+/* Image area on top; placeholder + outward (convex) bottom curve into body */
 .teamCardVisual {
   position: relative;
   width: 100%;
   aspect-ratio: 1.12;
   flex-shrink: 0;
   overflow: hidden;
-  /* Bottom arc — vertical % controls depth of scoop (was 46%, too shallow on cards) */
+  /* Bottom arc; vertical % controls depth of scoop (was 46%, too shallow on cards) */
   border-radius: 0 0 999px 999px / 0 0 84% 84%;
   background: linear-gradient(
     168deg,
@@ -1172,7 +1172,7 @@
 
 .valueCardTop {
   display: flex;
-  align-items: center;
+    align-items: center;
   justify-content: space-between;
   gap: 0.65rem;
   margin-bottom: 0.75rem;
@@ -1226,7 +1226,7 @@
 }
 
 @media (max-width: 780px) {
-  /* Hero — centered copy; static image only (see HomeHero.tsx); narrower CTAs */
+  /* Hero; centered copy, static image only (see HomeHero.tsx), narrower CTAs */
   .heroInner {
     justify-items: center;
   }
@@ -1259,7 +1259,7 @@
     gap: 0.75rem;
   }
 
-  /* Everything you need to know — stack: copy, then photo strip */
+  /* Everything you need to know; stack: copy, then photo strip */
   .needToKnow {
     display: flex;
     flex-direction: column;
@@ -1335,7 +1335,7 @@
     margin-top: 0.65rem;
   }
 
-  /* The Work We Do — title centered; View all only after cards */
+  /* The Work We Do; title centered, View all only after cards */
   .servicesHeaderViewAllDesktop {
     display: none !important;
   }
@@ -1385,7 +1385,7 @@
     padding: 0.9rem 0;
   }
 
-  /* Thin green separator — keeps brand stripe between sections */
+  /* Thin green separator; keeps brand stripe between sections */
   .emergencyBand {
     height: 5px !important;
     min-height: 5px !important;
@@ -1404,7 +1404,7 @@
     display: none !important;
   }
 
-  /* Meet the team — centered heading block */
+  /* Meet the team; centered heading block */
   .teamSectionHeader {
     text-align: center;
   }

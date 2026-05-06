@@ -30,26 +30,25 @@ export default function ProjectGridClient({ projects }: ProjectGridClientProps) 
               alt={project.imageAlt}
               fill
               className={styles.cardImage}
-              sizes="(max-width: 780px) 100vw, 50vw"
+              sizes="(max-width: 980px) 100vw, 40vw"
             />
-            <div className={styles.cardScrim} aria-hidden />
+            <div className={styles.cardBaseShade} aria-hidden />
+            <div className={styles.cardHoverWash} aria-hidden />
             <div className={styles.cardBody}>
+              <p className={styles.location}>{project.location}</p>
               <h2 className={styles.cardTitle}>{project.title}</h2>
-              <div className={styles.cardExtrasWrap}>
-                <div className={styles.cardExtrasInner}>
-                  <div className={styles.cardTop}>
-                    <div className={styles.meta}>
-                      <span>{project.sector}</span>
-                      <span className={styles.dot} aria-hidden>
-                        ·
-                      </span>
-                      <span className={styles.year}>{project.year}</span>
-                    </div>
-                  </div>
-                  <p className={styles.tagline}>{project.tagline}</p>
-                  <p className={styles.summary}>{project.summary}</p>
+              <div className={styles.cardTop}>
+                <div className={styles.meta}>
+                  <span>{project.sector}</span>
+                  <span className={styles.dot} aria-hidden>
+                    ·
+                  </span>
+                  <span className={styles.year}>{project.year}</span>
                 </div>
               </div>
+              <p className={styles.worksLabel}>Works carried out</p>
+              <p className={styles.tagline}>{project.tagline}</p>
+              <p className={styles.summary}>{project.summary}</p>
             </div>
           </div>
         );
@@ -70,7 +69,7 @@ export default function ProjectGridClient({ projects }: ProjectGridClientProps) 
   );
 }
 
-/** Intro band — client wrapper for consistent motion with the grid */
+/** Intro band; client wrapper for consistent motion with the grid */
 export function ProjectsIntroClient({
   eyebrow,
   title,

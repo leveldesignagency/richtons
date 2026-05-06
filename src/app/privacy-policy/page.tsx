@@ -83,14 +83,14 @@ export default function PrivacyPolicyPage() {
                 <li>
                   <strong>Technical data:</strong> IP address, browser type and version,
                   device identifiers, approximate location derived from IP, pages viewed,
-                  referring URLs, timestamps — collected via cookies and similar
+                  referring URLs, timestamps, collected via cookies and similar
                   technologies where applicable (see our{" "}
                   <Link href="/cookie-policy">Cookie Policy</Link>).
                 </li>
                 <li>
                   <strong>Contract &amp; project data:</strong> information necessary to
                   scope works, quotations, contracts, site visits, emergency response,
-                  invoicing, and regulatory reporting — often supplied by you or your
+                  invoicing, and regulatory reporting, often supplied by you or your
                   representatives.
                 </li>
               </ul>
@@ -109,7 +109,7 @@ export default function PrivacyPolicyPage() {
                   <strong>Legitimate interests:</strong> to operate and secure our website,
                   analyse aggregated usage trends (where configured), communicate service
                   updates where appropriate, protect against fraud or misuse, and manage
-                  business continuity — balanced against your rights.
+                  business continuity, balanced against your rights.
                 </li>
                 <li>
                   <strong>Legal obligation:</strong> health &amp; safety, environmental,
@@ -118,7 +118,7 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   <strong>Consent:</strong> where required for optional cookies or specific
-                  marketing communications — you may withdraw consent at any time without
+                  marketing communications, you may withdraw consent at any time without
                   affecting processing prior to withdrawal.
                 </li>
               </ul>
@@ -128,7 +128,7 @@ export default function PrivacyPolicyPage() {
               <h2 id="p-share">4. Sharing personal data</h2>
               <p>
                 We may share data with trusted processors who assist our operations under
-                strict contractual terms — for example IT hosting, email delivery,
+                strict contractual terms, for example IT hosting, email delivery,
                 accounting systems, or subcontracted specialists involved in delivering
                 works with your knowledge where appropriate.
               </p>
@@ -219,7 +219,7 @@ export default function PrivacyPolicyPage() {
             <p className={styles.note}>
               This policy is designed as a practical overview for website visitors and
               clients. Your obligations under asbestos and environmental regulation remain
-              governed by statute and contract — seek independent advice where necessary.
+              governed by statute and contract, seek independent advice where necessary.
             </p>
           </article>
           </LegalReader>

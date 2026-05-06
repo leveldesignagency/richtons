@@ -10,7 +10,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Sitemap | Richtons Environmental Services",
   description:
-    "Browse every area of the site — main destinations in one row, with relevant subsection links grouped underneath.",
+    "Browse every area of the site, main destinations in one row, with relevant subsection links grouped underneath.",
 };
 
 type MapColumn = {
@@ -95,7 +95,7 @@ export default function SiteMapPage() {
         <header className={styles.intro}>
           <h1>Sitemap</h1>
           <p>
-            Main destinations across the top — drill into each column for anchors on the
+            Main destinations across the top, drill into each column for anchors on the
             home page, sector tabs on About, individual service routes, and contact
             shortcuts.
           </p>

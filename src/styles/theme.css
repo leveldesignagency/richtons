@@ -5,7 +5,7 @@
  */
 
 :root {
-  /* Change brand colour here only — the rest of the site reads these tokens. */
+  /* Change brand colour here only ; the rest of the site reads these tokens. */
   --color-brand: #4ab449;
   --color-brand-rgb: 74 180 73;
 

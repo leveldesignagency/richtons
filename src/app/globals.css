@@ -1,17 +1,25 @@
+/*
+ * Horizontal clip on `html` only so `body` is not also turned into a scroll
+ * container (overflow-x non-visible forces overflow-y: auto on the same box).
+ *
+ * Avoid max-width: 100vw on html/body; vw ignores scrollbar width and can cause
+ * sub-pixel horizontal overflow → Chrome reflows and the scrollbar thumb mis-draws.
+ */
 html {
-  /* Avoid horizontal jump when the vertical scrollbar appears/disappears */
   scrollbar-gutter: stable;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  /* Smooth scrolling here made long pages (e.g. About) feel sticky with trackpads */
   scroll-behavior: auto;
+  overflow-x: hidden;
+}
+
+@supports (overflow: clip) {
+  html {
+    overflow-x: clip;
+  }
 }
 
 body {
+  margin: 0;
+  scroll-behavior: auto;
   color: #f4f6f8;
   background: #07090c;
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;

@@ -1,4 +1,4 @@
-/* Standalone heading row — do not compose with about `.sectorsHeading` (max-width caps caused intermittent misalignment). */
+/* Standalone heading row ; do not compose with about `.sectorsHeading` (max-width caps caused intermittent misalignment). */
 .servicesHeading {
   display: flex;
   flex-direction: column;

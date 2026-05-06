@@ -8,7 +8,7 @@ export type LegalTocItem = {
   id: string;
   /** Compact label shown in the TOC (e.g. `1`, `2`) */
   tab: string;
-  /** Full section title — shown next to the number */
+  /** Full section title ; shown next to the number */
   title: string;
 };
 
@@ -17,7 +17,7 @@ type LegalReaderProps = {
   children: ReactNode;
 };
 
-/** Left-hand section index + scroll spy — sticky TOC stays reachable while scrolling */
+/** Left-hand section index + scroll spy ; sticky TOC stays reachable while scrolling */
 export default function LegalReader({ toc, children }: LegalReaderProps) {
   const [activeId, setActiveId] = useState<string>(toc[0]?.id ?? "");
 

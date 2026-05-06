@@ -15,9 +15,9 @@
 
 .projectsBody {
   display: grid;
-  grid-template-columns: minmax(13.5rem, 16.25rem) minmax(0, 1fr);
-  gap: clamp(1.35rem, 3.5vw, 2.85rem);
-  padding: 0 clamp(1.25rem, 4vw, 4.5rem) clamp(2.25rem, 5vw, 3.25rem);
+  grid-template-columns: minmax(14.5rem, 17.5rem) minmax(0, 1fr);
+  gap: clamp(1.6rem, 3.8vw, 3.35rem);
+  padding: 0 clamp(1.5rem, 4.8vw, 5.25rem) clamp(2.6rem, 5.5vw, 3.85rem);
   align-items: start;
 }
 

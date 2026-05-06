@@ -21,7 +21,7 @@ function truncateCaption(text: string, maxChars: number): string {
 /** One slide per core service (order matches `/services`, starting with asbestos removal). */
 const HOME_HERO_SLIDES = serviceDetails.map((service) => ({
   src: service.heroImage,
-  alt: `${service.title} — Richtons specialist works`,
+  alt: `${service.title} Richtons specialist works`,
   serviceHref: `/services/${service.slug}`,
   title: service.cardTitle,
   caption: truncateCaption(service.shortDescription, 92),
@@ -32,7 +32,7 @@ const IDLE_FULLSCREEN_MS = 5000;
 const LAYOUT_TRANSITION_MS = 1150;
 const SLIDE_DWELL_MS = 4500;
 
-/** Indices to visit once composed layout is visible — skips duplicate dwell on slide 0 (already shown after transition). */
+/** Indices to visit once composed layout is visible; skips duplicate dwell on slide 0 (already shown after transition). */
 function carouselIndices(length: number): number[] {
   if (length <= 1) return length === 1 ? [0] : [];
   return [...Array.from({ length: length - 1 }, (_, k) => k + 1), 0];

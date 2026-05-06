@@ -26,7 +26,7 @@ const TERMS_TOC: LegalTocItem[] = [
 export const metadata: Metadata = {
   title: "Terms & Conditions | Richtons Environmental Services",
   description:
-    "Website terms of use for Richtons Environmental Services Limited — access, acceptable use, liability, and governing law.",
+    "Website terms of use for Richtons Environmental Services Limited, access, acceptable use, liability, and governing law.",
 };
 
 export default function TermsAndConditionsPage() {
@@ -149,7 +149,7 @@ export default function TermsAndConditionsPage() {
                 injury caused by negligence where applicable) shall not exceed{" "}
                 <strong>£100</strong> or the amount you have paid us specifically for use
                 of online-only paid features in the twelve months before the claim,
-                whichever is higher — unless a mandatory provision requires otherwise.
+                whichever is higher, unless a mandatory provision requires otherwise.
               </p>
               <p>
                 Nothing in these terms excludes liability that cannot legally be excluded.

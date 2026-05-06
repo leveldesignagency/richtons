@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Contact us | Richtons Environmental Services",
   description:
-    "Contact Richtons for asbestos, hazardous material, and environmental services — call, email, or send an enquiry from this page.",
+    "Contact Richtons for asbestos, hazardous material, and environmental services, call, email, or send an enquiry from this page.",
 };
 
 function PhoneIcon() {
