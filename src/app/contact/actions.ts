@@ -5,6 +5,10 @@ export type ContactState =
   | { ok: false; message: string }
   | null;
 
+function toMultilineText(input: string): string {
+  return input.replace(/\r\n/g, "\n").trim();
+}
+
 export async function submitContact(
   _prev: ContactState | null,
   formData: FormData
@@ -31,8 +35,52 @@ export async function submitContact(
     };
   }
 
-  // In production, pass { name, email, phone, subject, message } to your email provider or CRM.
-  void phone;
+  const resendApiKey = process.env.RESEND_API_KEY?.trim();
+  const toEmail = process.env.CONTACT_TO_EMAIL?.trim() || "tony@richtons.co.uk";
+  const fromEmail =
+    process.env.CONTACT_FROM_EMAIL?.trim() ||
+    "Richtons Contact <onboarding@resend.dev>";
+
+  if (!resendApiKey) {
+    return {
+      ok: false,
+      message:
+        "Form email is not configured yet. Please add RESEND_API_KEY in environment variables.",
+    };
+  }
+
+  const lines = [
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone || "Not provided"}`,
+    `Subject: ${subject}`,
+    "",
+    "Message:",
+    toMultilineText(message),
+  ];
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: fromEmail,
+      to: [toEmail],
+      subject: `[Website Enquiry] ${subject}`,
+      text: lines.join("\n"),
+      reply_to: email,
+    }),
+  });
+
+  if (!response.ok) {
+    return {
+      ok: false,
+      message:
+        "Sorry, we could not send your enquiry right now. Please try again shortly.",
+    };
+  }
 
   return {
     ok: true,
