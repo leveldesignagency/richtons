@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { contact } from "@/lib/contact";
 import { getSiteUrl } from "@/lib/site-url";
@@ -129,6 +130,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );
