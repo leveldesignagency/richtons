@@ -411,9 +411,57 @@
   }
 }
 
-@media (max-width: 640px) {
+/* Mobile / narrow: fixed vh heroes collapse content (flex mid centers into zero space → overlap).
+   Let the block grow with content; keep a modest min-height for the image treatment. */
+@media (max-width: 780px) {
   .hero {
-    --service-hero-height: clamp(560px, 88svh, 820px);
+    --service-hero-height: auto;
+    height: auto;
+    min-height: clamp(22rem, 48dvh, 32rem);
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .heroContent {
+    flex: 0 1 auto;
+    gap: clamp(1rem, 3.5vw, 1.35rem);
+    min-height: 0;
+  }
+
+  .heroTop {
+    gap: 0.35rem;
+  }
+
+  .backToServicesLink {
+    margin-bottom: 0.35rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 0;
+  }
+
+  .heroMid {
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    min-height: 0;
+    padding: clamp(0.35rem, 1.5vw, 0.65rem) 0 clamp(0.65rem, 2vw, 1rem);
+    gap: clamp(0.75rem, 2.2vw, 1rem);
+  }
+
+  .heroTitle {
+    font-size: clamp(1.65rem, 7.2vw, 2.35rem);
+    line-height: 1.12;
+  }
+
+  .heroLead {
+    font-size: clamp(1rem, 3.8vw, 1.12rem);
+    line-height: 1.5;
+  }
+
+  .quickNav {
+    margin-top: clamp(1.25rem, 4vw, 2rem);
+    padding-top: clamp(0.85rem, 3vw, 1.35rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
 }
 
