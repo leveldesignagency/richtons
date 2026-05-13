@@ -14,6 +14,11 @@
     padding 0.3s ease;
 }
 
+/* Full-screen mobile overlay must stack above page content (main follows header in DOM). */
+.headerShell.headerMenuOpen {
+  z-index: 5000;
+}
+
 .headerShell::before {
   content: "";
   position: absolute;
@@ -203,8 +208,8 @@
   }
 
   .menuDock {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 999px;
     background: transparent;
     border: 0;
@@ -215,7 +220,7 @@
   .menuDock:hover,
   .menuDock:focus-within,
   .menuDockOpen {
-    width: 3rem;
+    width: 2.5rem;
   }
 
   .menuLinks {
@@ -300,24 +305,24 @@
   .hamburger {
     position: relative;
     z-index: 1001;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-left: 0;
     border-radius: 999px;
     background: rgba(8, 14, 9, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.52);
-    gap: 0.24rem;
+    gap: 0.2rem;
   }
 
   .hamburger span {
-    width: 1.08rem;
+    width: 0.95rem;
     transition:
       transform 0.24s ease,
       opacity 0.2s ease;
   }
 
   .menuDockOpen .hamburger span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
+    transform: translateY(5px) rotate(45deg);
   }
 
   .menuDockOpen .hamburger span:nth-child(2) {
@@ -325,6 +330,6 @@
   }
 
   .menuDockOpen .hamburger span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
+    transform: translateY(-5px) rotate(-45deg);
   }
 }

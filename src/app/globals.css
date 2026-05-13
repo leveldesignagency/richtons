@@ -37,3 +37,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* /projects layout wrapper only (see app/projects/layout.tsx) */
+.projectsRouteRoot {
+  min-height: 100dvh;
+  min-height: 100svh;
+  background-color: var(--projects-canvas-bg);
+}

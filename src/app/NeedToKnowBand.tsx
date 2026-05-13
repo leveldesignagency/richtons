@@ -139,7 +139,7 @@ export default function NeedToKnowBand() {
           alt=""
           src="/surveying.jpg"
           fill
-          sizes="680px"
+          sizes="(max-width: 780px) 100vw, 680px"
           className={styles.needToKnowFloatingImg}
         />
       </div>

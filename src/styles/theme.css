@@ -22,4 +22,14 @@
   --color-brand-glow: color-mix(in srgb, var(--color-brand) 40%, #ffffff 60%);
 
   --shadow-brand-button: 0 10px 24px var(--color-brand-35);
+
+  /* Projects listing: same charcoal as footer / home team band */
+  --projects-canvas-bg: #181918;
+  /* Raised panels on projects page (intro, cards, nav) */
+  --projects-surface: #22262e;
+  --projects-surface-deep: #1a1d22;
+  --projects-border: rgba(255, 255, 255, 0.1);
+  --projects-text-heading: #f0f4f8;
+  --projects-text-body: #b9c5d0;
+  --projects-text-soft: #8f9ba8;
 }

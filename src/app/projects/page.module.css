@@ -1,29 +1,83 @@
 .page {
   min-height: 100svh;
-  background: #ffffff;
-  color: #1a1d21;
+  background-color: var(--projects-canvas-bg);
+  color: #e8ecf0;
   display: flex;
   flex-direction: column;
-}
-
-.main {
-  flex: 1;
-  background: #ffffff;
-  /* Clears fixed SiteHeader so titles aren’t tucked under the pill */
-  padding-top: calc(env(safe-area-inset-top, 0px) + clamp(5rem, 11vw, 7rem));
 }
 
 .projectsBody {
   display: grid;
   grid-template-columns: minmax(14.5rem, 17.5rem) minmax(0, 1fr);
   gap: clamp(1.6rem, 3.8vw, 3.35rem);
-  padding: 0 clamp(1.5rem, 4.8vw, 5.25rem) clamp(2.6rem, 5.5vw, 3.85rem);
+  flex: 1;
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 4.8vw, 5.25rem)
+    clamp(2.6rem, 5.5vw, 3.85rem);
   align-items: start;
+  background-color: var(--projects-canvas-bg);
 }
 
 @media (max-width: 900px) {
   .projectsBody {
     grid-template-columns: 1fr;
     padding-inline: clamp(1.25rem, 5vw, 2rem);
+  }
+}
+
+/* Self-contained hero (same rhythm as About; no cross-import of about/page.module.css). */
+.projectsHero {
+  min-height: clamp(15rem, 38svh, 22rem);
+  padding: clamp(2.75rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 4.5rem)
+    clamp(1.35rem, 3vw, 2rem);
+  /* Left scrim so copy stays readable over busy photos; photo stays full-bleed underneath. */
+  background-image: linear-gradient(
+      to right,
+      rgba(10, 12, 16, 0.88) 0%,
+      rgba(10, 12, 16, 0.52) min(42vw, 26rem),
+      rgba(10, 12, 16, 0.14) min(62vw, 40rem),
+      transparent 100%
+    ),
+    var(--hero-bg-image, url("/hero image.png"));
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.projectsHeroContent {
+  margin-top: clamp(1.25rem, 4vh, 2.75rem);
+  max-width: 46rem;
+}
+
+.projectsHeroEyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-brand);
+  font-weight: 700;
+  font-size: 0.78rem;
+  margin-bottom: 0.7rem;
+}
+
+.projectsHeroContent h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.9rem;
+}
+
+.projectsHeroLead {
+  max-width: 44rem;
+  margin: 0;
+  line-height: 1.55;
+  color: #edf1f5;
+}
+
+@media (max-width: 780px) {
+  .projectsHero {
+    min-height: clamp(13rem, 36svh, 19rem);
+    padding-bottom: clamp(1.1rem, 2.5vw, 1.5rem);
+  }
+
+  .projectsHeroContent {
+    margin-top: clamp(0.85rem, 3vh, 1.75rem);
   }
 }

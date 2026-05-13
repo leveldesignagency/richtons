@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import FadeInOnView from "@/components/FadeInOnView";
 import FadeInStagger from "@/components/FadeInStagger";
 import type { FeaturedProject } from "@/lib/projects";
 import styles from "./ProjectGridClient.module.css";
@@ -25,15 +24,15 @@ export default function ProjectGridClient({ projects }: ProjectGridClientProps) 
 
         const CardInner = (
           <div className={styles.cardMedia}>
-            <Image
-              src={imgSrc}
-              alt={project.imageAlt}
-              fill
-              className={styles.cardImage}
-              sizes="(max-width: 980px) 100vw, 40vw"
-            />
-            <div className={styles.cardBaseShade} aria-hidden />
-            <div className={styles.cardHoverWash} aria-hidden />
+            <div className={styles.cardImageSlot}>
+              <Image
+                src={imgSrc}
+                alt={project.imageAlt}
+                fill
+                className={styles.cardImage}
+                sizes="(max-width: 980px) 100vw, 40vw"
+              />
+            </div>
             <div className={styles.cardBody}>
               <p className={styles.location}>{project.location}</p>
               <h2 className={styles.cardTitle}>{project.title}</h2>
@@ -66,30 +65,5 @@ export default function ProjectGridClient({ projects }: ProjectGridClientProps) 
         );
       })}
     </FadeInStagger>
-  );
-}
-
-/** Intro band; client wrapper for consistent motion with the grid */
-export function ProjectsIntroClient({
-  eyebrow,
-  title,
-  lead,
-}: {
-  eyebrow: string;
-  title: string;
-  lead: string;
-}) {
-  return (
-    <header className={styles.intro}>
-      <FadeInOnView>
-        <p className={styles.eyebrow}>{eyebrow}</p>
-      </FadeInOnView>
-      <FadeInOnView delay={70}>
-        <h1 className={styles.title}>{title}</h1>
-      </FadeInOnView>
-      <FadeInOnView delay={120}>
-        <p className={styles.lead}>{lead}</p>
-      </FadeInOnView>
-    </header>
   );
 }

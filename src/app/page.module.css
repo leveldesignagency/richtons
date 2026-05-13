@@ -897,8 +897,8 @@
 .teamGrid {
   --team-grid-inline-inset: max(8px, 0.35rem);
   /* Room inside scrollport for hover translateY + scale + shadow; overflow-x:auto forces vertical clipping */
-  --team-grid-pad-block-start: clamp(14px, 1.35rem, 22px);
-  --team-grid-pad-block-end: clamp(18px, 1.65rem, 32px);
+  --team-grid-pad-block-start: clamp(22px, 2.2vw, 32px);
+  --team-grid-pad-block-end: clamp(22px, 2rem, 34px);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -1266,12 +1266,9 @@
     min-height: clamp(22rem, 72vh, 40rem);
   }
 
+  /* Sharp surveying photo below copy (desktop uses absolute “floating” frame). */
   .needToKnowMedia {
-    position: relative;
-    flex: 0 0 auto;
-    order: 2;
-    height: min(40vh, 280px);
-    min-height: 200px;
+    display: none;
   }
 
   .needToKnowGrain {
@@ -1300,7 +1297,21 @@
   }
 
   .needToKnowFloatingPhoto {
-    display: none;
+    display: block;
+    position: relative;
+    left: auto;
+    top: auto;
+    order: 2;
+    z-index: 2;
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 5 / 3;
+    min-height: min(42vw, 220px);
+    transform: none;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    will-change: auto;
   }
 
   .needToKnowForeground {
@@ -1412,6 +1423,12 @@
   .teamSectionIntro {
     margin-inline: auto;
     max-width: 38rem;
+  }
+
+  /* overflow-x:auto forces vertical clipping; extra top pad clears scaled card tops */
+  .teamGrid {
+    --team-grid-pad-block-start: clamp(36px, 10vw, 56px);
+    --team-grid-pad-block-end: clamp(24px, 4vw, 40px);
   }
 
   .logoPill {

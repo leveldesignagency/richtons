@@ -1,67 +1,4 @@
-/* Light projects page; horizontal inset matches homepage sections */
-
-.intro {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin: 0 auto;
-  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 4.5rem)
-    clamp(1.1rem, 2.5vw, 1.5rem);
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 0 0 1rem 1rem;
-  background:
-    radial-gradient(120% 170% at 92% -18%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 55%),
-    radial-gradient(120% 180% at -8% 125%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 58%),
-    linear-gradient(
-      132deg,
-      rgb(var(--color-brand-rgb) / 0.98) 0%,
-      rgb(60 168 77 / 0.96) 42%,
-      rgb(36 126 64 / 0.97) 100%
-    );
-  box-shadow: 0 18px 34px rgba(10, 42, 19, 0.18);
-}
-
-.intro::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.045) 0 9px,
-      rgba(255, 255, 255, 0) 9px 22px
-    );
-  opacity: 0.34;
-}
-
-.eyebrow {
-  margin: 0 0 0.5rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgb(244 251 245 / 0.9);
-}
-
-.title {
-  margin: 0 0 0.65rem;
-  font-size: clamp(1.65rem, 3.6vw, 2.35rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-  color: #ffffff;
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.16);
-}
-
-.lead {
-  margin: 0;
-  max-width: 58rem;
-  font-size: clamp(1.02rem, 1.25vw, 1.16rem);
-  line-height: 1.62;
-  color: rgb(244 251 245 / 0.95);
-}
+/* Project cards: photo-forward layout; page chrome is set on /projects route */
 
 .grid {
   display: grid;
@@ -81,17 +18,18 @@
 
 .cardLink,
 .cardStatic {
-  display: block;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   min-height: 0;
   padding: 0;
   overflow: hidden;
-  background: #101418;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: var(--projects-surface);
+  border: 1px solid var(--projects-border);
   border-radius: 0.95rem;
-  color: inherit;
+  color: var(--projects-text-body);
   text-decoration: none;
-  box-shadow: 0 12px 28px rgba(6, 12, 18, 0.24);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
   transition:
     border-color 0.22s ease,
     box-shadow 0.22s ease,
@@ -116,16 +54,26 @@
 }
 
 .cardMedia {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  background: transparent;
+}
+
+/* Image only in this box — no overlays, no text on top of the photo */
+.cardImageSlot {
   position: relative;
   width: 100%;
-  min-height: clamp(19rem, 34vw, 26rem);
-  isolation: isolate;
-  background: #0f1418;
+  flex-shrink: 0;
+  min-height: clamp(16rem, 32vw, 26rem);
+  background: var(--projects-surface-deep);
 }
 
 .cardImage {
   position: absolute;
   inset: 0;
+  z-index: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -138,65 +86,19 @@
   transform: scale(1.03);
 }
 
-.cardHoverWash {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: rgb(var(--color-brand-rgb) / 0.82);
-  opacity: 0;
-  transition: opacity 0.26s ease;
-}
-
-.cardLink:hover .cardHoverWash,
-.cardLink:focus-visible .cardHoverWash {
-  opacity: 1;
-}
-
 .cardBody {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 4;
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.42rem;
-  width: min(66ch, 100%);
-  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 2.5vw, 1.5rem)
-    clamp(1.1rem, 2.6vw, 1.6rem);
+  padding: clamp(0.95rem, 2.2vw, 1.25rem) clamp(1rem, 2.5vw, 1.5rem)
+    clamp(1.05rem, 2.6vw, 1.45rem);
   text-align: left;
-  background: transparent;
-}
-
-.cardBaseShade {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 58%;
-  z-index: 2;
-  pointer-events: none;
-  backdrop-filter: blur(8px) saturate(1.08);
-  -webkit-backdrop-filter: blur(8px) saturate(1.08);
-  mask-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.96) 58%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.96) 58%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  background: linear-gradient(
-    to right,
-    rgba(6, 10, 14, 0.62) 0%,
-    rgba(6, 10, 14, 0.44) 42%,
-    rgba(6, 10, 14, 0.2) 72%,
-    rgba(6, 10, 14, 0.04) 100%
-  );
+  background: var(--projects-surface);
+  border-top: 1px solid var(--projects-border);
 }
 
 .location {
@@ -222,7 +124,7 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: rgb(240 245 250 / 0.84);
+  color: var(--projects-text-soft);
 }
 
 .dot {
@@ -230,7 +132,7 @@
 }
 
 .year {
-  color: rgb(240 245 250 / 0.76);
+  color: var(--projects-text-soft);
 }
 
 .cardTitle {
@@ -239,9 +141,8 @@
   font-weight: 700;
   letter-spacing: -0.018em;
   line-height: 1.12;
-  color: #ffffff;
+  color: var(--projects-text-heading);
   text-align: left;
-  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.2);
 }
 
 .worksLabel {
@@ -250,14 +151,14 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 700;
-  color: rgb(240 245 250 / 0.76);
+  color: var(--projects-text-soft);
 }
 
 .tagline {
   margin: 0.02rem 0 0.25rem;
   font-size: clamp(0.94rem, 1.1vw, 1.02rem);
   font-weight: 600;
-  color: rgb(248 251 254 / 0.94);
+  color: var(--projects-text-body);
   line-height: 1.4;
   text-align: left;
 }
@@ -266,7 +167,7 @@
   margin: 0;
   font-size: clamp(0.95rem, 1.08vw, 1.02rem);
   line-height: 1.66;
-  color: rgb(249 252 255 / 0.94);
+  color: var(--projects-text-body);
   font-weight: 500;
   text-align: left;
   max-height: 0;
@@ -284,128 +185,63 @@
   max-height: 80rem;
   opacity: 1;
   transform: translateY(0);
-  color: #ffffff;
+  color: var(--projects-text-heading);
 }
 
 .cardLink:hover .location,
 .cardLink:focus-visible .location,
 .cardLink:hover .worksLabel,
 .cardLink:focus-visible .worksLabel {
-  color: rgb(255 255 255 / 0.92);
+  color: rgb(255 255 255 / 0.88);
 }
 
 .cardLink:hover .meta,
 .cardLink:focus-visible .meta,
 .cardLink:hover .year,
 .cardLink:focus-visible .year {
-  color: rgb(255 255 255 / 0.88);
+  color: var(--projects-text-body);
 }
 
 .cardLink:hover .tagline,
 .cardLink:focus-visible .tagline {
-  color: rgb(255 255 255 / 0.95);
+  color: var(--projects-text-heading);
 }
 
 .cardLink:hover .cardTitle,
 .cardLink:focus-visible .cardTitle {
-  color: #ffffff;
+  color: var(--projects-text-heading);
 }
 
 @media (max-width: 980px) {
-  .cardMedia {
-    min-height: clamp(18rem, 54vw, 23rem);
-  }
-
-  .cardBody {
-    width: min(72ch, 100%);
-  }
-
-  .cardBaseShade {
-    width: 68%;
+  .cardImageSlot {
+    min-height: clamp(15rem, 52vw, 23rem);
   }
 }
 
 @media (max-width: 780px) {
-  .intro {
-    padding-top: clamp(1.35rem, 4vw, 2rem);
-    padding-inline: clamp(1.25rem, 5vw, 2rem);
-  }
-
   .grid {
     gap: 0.9rem;
     padding-inline: 0;
     padding-bottom: clamp(1.75rem, 6vw, 2.5rem);
   }
 
-  .cardMedia {
-    min-height: 0;
-    display: block;
+  .cardImageSlot {
+    min-height: clamp(12.5rem, 48vw, 16.5rem);
   }
 
   .cardImage {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: auto;
-    width: 100%;
-    height: clamp(12.5rem, 48vw, 16.5rem);
     transform: none !important;
   }
 
-  .cardBaseShade {
-    display: none;
-  }
-
   .cardBody {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    width: 100%;
-    margin-top: clamp(12.5rem, 48vw, 16.5rem);
     padding: 0.95rem 0.95rem 1.05rem;
-    background: #0f1418;
     gap: 0.36rem;
-  }
-
-  .location {
-    color: rgb(var(--color-brand-rgb) / 0.96);
-  }
-
-  .meta {
-    color: rgb(240 245 250 / 0.8);
-  }
-
-  .year {
-    color: rgb(240 245 250 / 0.72);
-  }
-
-  .worksLabel {
-    color: rgb(240 245 250 / 0.72);
-  }
-
-  .tagline {
-    color: rgb(248 251 254 / 0.93);
-  }
-
-  .cardTitle {
-    color: #ffffff;
-  }
-
-  .cardBody::before {
-    display: none;
   }
 
   .summary {
     max-height: none;
     opacity: 1;
     transform: none;
-    color: rgb(236 242 247 / 0.93);
-  }
-
-  .cardHoverWash {
-    display: none;
   }
 }
 

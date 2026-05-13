@@ -7,9 +7,9 @@ type ProjectsNavProps = {
 
 export default function ProjectsNav({ projects }: ProjectsNavProps) {
   return (
-    <nav className={styles.nav} aria-label="Jump to project">
+    <nav className={styles.nav} aria-label="Jump to case study">
       <div className={styles.navInner}>
-        <p className={styles.navCaption}>Projects Index</p>
+        <p className={styles.navCaption}>Case studies</p>
         <ul className={styles.list}>
           {projects.map((project, index) => (
             <li key={project.id} className={styles.item}>

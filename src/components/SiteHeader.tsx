@@ -74,6 +74,10 @@ export default function SiteHeader({
   }, []);
 
   useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
     if (!isMenuOpen) return;
 
     const onPointerDown = (event: MouseEvent | TouchEvent) => {
@@ -99,7 +103,7 @@ export default function SiteHeader({
         disableScrollOverlay ? styles.noScrollOverlay : ""
       } ${alwaysShowOverlay ? styles.alwaysOverlay : ""} ${
         fullBleedBarUntilScroll ? styles.headerFullBleedUntilScroll : ""
-      }`}
+      } ${isMenuOpen ? styles.headerMenuOpen : ""}`}
     >
       <div className={styles.headerInner}>
         <Link href="/" className={styles.brand} aria-label="Richtons home">
@@ -130,7 +134,9 @@ export default function SiteHeader({
                     ? "true"
                     : "false"
                 }
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  queueMicrotask(() => setIsMenuOpen(false));
+                }}
               >
                 {link.label}
               </Link>

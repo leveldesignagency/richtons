@@ -1,17 +1,17 @@
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
-import ProjectGridClient, {
-  ProjectsIntroClient,
-} from "@/components/ProjectGridClient";
+import ProjectGridClient from "@/components/ProjectGridClient";
 import ProjectsNav from "@/components/ProjectsNav";
 import { featuredProjects } from "@/lib/projects";
+import ProjectsPageHero from "./ProjectsPageHero";
 import styles from "./page.module.css";
 
 export default function ProjectsPage() {
+  const heroImageSrc = "/projects.jpg";
+
   return (
-    <div className={styles.page}>
+    <main className={styles.page}>
       <SiteHeader
-        logoTreatment="brand"
         links={[
           { label: "About", href: "/about" },
           { label: "Services", href: "/services" },
@@ -20,19 +20,14 @@ export default function ProjectsPage() {
         ]}
       />
 
-      <main className={styles.main}>
-        <ProjectsIntroClient
-          eyebrow="Featured programmes"
-          title="Projects"
-          lead="A selection of live case studies across education, housing, hospitality, retail, and public-sector estates, delivered with strict controls, clear communication, and programme certainty."
-        />
-        <div className={styles.projectsBody}>
-          <ProjectsNav projects={featuredProjects} />
-          <ProjectGridClient projects={featuredProjects} />
-        </div>
-      </main>
+      <ProjectsPageHero heroImageSrc={heroImageSrc} />
+
+      <div className={styles.projectsBody}>
+        <ProjectsNav projects={featuredProjects} />
+        <ProjectGridClient projects={featuredProjects} />
+      </div>
 
       <SiteFooter />
-    </div>
+    </main>
   );
 }
