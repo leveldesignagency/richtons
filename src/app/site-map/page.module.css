@@ -200,6 +200,19 @@
   }
 }
 
+@media (max-width: 780px) {
+  .intro {
+    margin-inline: 0;
+    margin-bottom: 2.25rem;
+    text-align: left;
+  }
+
+  .columnHead,
+  .columnHint {
+    text-align: left;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .columnHead:hover,
   .columnHead:focus-visible {

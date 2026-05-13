@@ -64,8 +64,9 @@ export default function HomeTeamScroll({ members }: HomeTeamScrollProps) {
           } as CSSProperties;
 
           return (
-            <article key={member.name} className={styles.teamCard} style={shellStyle}>
-              <div className={styles.teamCardInner}>
+            <div key={member.name} className={styles.teamCardSlot}>
+              <article className={styles.teamCard} style={shellStyle}>
+                <div className={styles.teamCardInner}>
                 <div
                   className={styles.teamCardShimmer}
                   style={{
@@ -80,7 +81,8 @@ export default function HomeTeamScroll({ members }: HomeTeamScrollProps) {
                   <p className={styles.teamRole}>{member.role}</p>
                 </div>
               </div>
-            </article>
+              </article>
+            </div>
           );
         })}
       </div>

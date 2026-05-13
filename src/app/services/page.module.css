@@ -339,6 +339,24 @@
   }
 }
 
+@media (max-width: 780px) {
+  .servicesHeading {
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    margin-inline: 0;
+  }
+
+  .servicesTitle,
+  .servicesTitleReveal {
+    text-align: left;
+  }
+
+  .servicesTitle {
+    white-space: normal;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hubCardArrowIcon,
   .hubCard:hover .hubCardArrowIcon {

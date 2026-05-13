@@ -192,9 +192,17 @@
 }
 
 @media (max-width: 780px) {
-  /* No floating pill backdrop on scroll ; keeps header visually stable on phones */
+  /* Full-width bar on scroll (desktop keeps the inset pill via default ::before rules). */
+  .headerShell::before {
+    inset: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+  }
+
   .headerShell.scrolled::before {
-    opacity: 0 !important;
+    opacity: 1;
   }
 
   .headerInner {

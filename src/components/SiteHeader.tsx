@@ -135,7 +135,13 @@ export default function SiteHeader({
                     : "false"
                 }
                 onClick={() => {
-                  queueMicrotask(() => setIsMenuOpen(false));
+                  const href = link.href;
+                  const alreadyHere =
+                    pathname === href ||
+                    (href !== "/" && pathname.startsWith(`${href}/`));
+                  /* Never queue close before navigation: microtasks run before the link/router
+                     default runs on mobile and can strand taps (overlay gets pointer-events:none). */
+                  if (alreadyHere) setIsMenuOpen(false);
                 }}
               >
                 {link.label}
