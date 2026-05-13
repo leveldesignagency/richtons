@@ -1,3 +1,4 @@
+import HomeCustomerServiceFab from "@/components/home/HomeCustomerServiceFab";
 import HomePartnersScroll from "@/components/home/HomePartnersScroll";
 import HomeServicesScroll from "@/components/home/HomeServicesScroll";
 import HomeTeamScroll from "@/components/home/HomeTeamScroll";
@@ -98,6 +99,8 @@ export default function Home() {
       <HomeValuesScroll />
 
       <SiteFooter />
+
+      <HomeCustomerServiceFab />
     </main>
   );
 }

@@ -1,0 +1,165 @@
+.shell {
+  --fab-size: clamp(3.15rem, 4.2vw + 2rem, 3.55rem);
+  --fab-radius-pill: calc(var(--fab-size) * 0.5);
+  --fab-row: clamp(2.35rem, 5.8vw, 2.7rem);
+  --fab-ease: cubic-bezier(0.38, 1.12, 0.48, 1);
+  --fab-gap: clamp(0.55rem, 2.2dvh, 0.95rem);
+  --fab-open-height: calc(
+    3 * var(--fab-row) + 2 * var(--fab-gap) + 2 * clamp(0.38rem, 1.5dvh, 0.58rem)
+  );
+  --fab-duration: 0.44s;
+
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  bottom: max(1.1rem, env(safe-area-inset-bottom, 0px));
+  z-index: 95;
+  box-sizing: border-box;
+  width: var(--fab-size);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  background: linear-gradient(168deg, #2f3238 0%, #1c1e22 52%, #181a1f 100%);
+  color: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    height var(--fab-duration) var(--fab-ease),
+    border-radius var(--fab-duration) var(--fab-ease),
+    box-shadow 0.32s ease;
+}
+
+.shell[data-open="false"] {
+  height: var(--fab-size);
+  border-radius: 999px;
+}
+
+.shell[data-open="true"] {
+  height: var(--fab-open-height);
+  border-radius: var(--fab-radius-pill);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(var(--color-brand-rgb), 0.12);
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.shell[data-open="true"] .track {
+  justify-content: center;
+  gap: var(--fab-gap);
+  padding: clamp(0.38rem, 1.5dvh, 0.58rem) clamp(0.22rem, 0.9vw, 0.34rem);
+}
+
+.shell[data-open="false"] .track {
+  padding: 0;
+}
+
+/* Phone + mail: hidden from layout when closed */
+.shell[data-open="false"] .plainHit:first-child,
+.shell[data-open="false"] .plainHit:nth-child(2) {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.shell[data-open="false"] .plainHit:last-child {
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  max-height: none;
+  border-radius: 999px;
+}
+
+/* Plain targets: no inner circles — only the outer pill provides the container */
+.plainHit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--fab-row);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition:
+    background-color 0.18s ease,
+    opacity 0.26s var(--fab-ease),
+    transform 0.26s var(--fab-ease),
+    visibility 0s linear;
+}
+
+.shell[data-open="true"] .plainHit {
+  height: var(--fab-row);
+  max-height: var(--fab-row);
+}
+
+.plainHit:hover,
+.plainHit:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+.shell[data-open="false"] .plainHit:last-child:hover,
+.shell[data-open="false"] .plainHit:last-child:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(var(--color-brand-rgb), 0.28);
+}
+
+.glyph {
+  position: absolute;
+  width: clamp(1.28rem, 3.2vw, 1.48rem);
+  height: clamp(1.28rem, 3.2vw, 1.48rem);
+  color: rgba(255, 255, 255, 0.96);
+  transition:
+    opacity 0.24s var(--fab-ease),
+    transform 0.24s var(--fab-ease);
+}
+
+.glyphShow {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.glyphHide {
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+.shell[data-open="false"] .plainHit:first-child,
+.shell[data-open="false"] .plainHit:nth-child(2) {
+  transition:
+    opacity 0.18s ease,
+    visibility 0s linear 0.18s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .plainHit,
+  .glyph {
+    transition-duration: 0.01ms;
+  }
+}

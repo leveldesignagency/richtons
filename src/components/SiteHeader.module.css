@@ -14,9 +14,9 @@
     padding 0.3s ease;
 }
 
-/* Full-screen mobile overlay must stack above page content (main follows header in DOM). */
+/* Above page + above mobile portal sheet so the header hamburger stays the interactive control. */
 .headerShell.headerMenuOpen {
-  z-index: 5000;
+  z-index: 10001;
 }
 
 .headerShell::before {
@@ -205,6 +205,20 @@
     opacity: 1;
   }
 
+  /* Menu open: flush to viewport top + solid fill so hero never shows through gaps or translucent ::before. */
+  .headerShell.headerMenuOpen {
+    top: 0;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 0.42rem);
+    padding-bottom: 0.12rem;
+    background-color: #181918;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+  }
+
+  .headerShell.headerMenuOpen::before {
+    display: none !important;
+  }
+
   .headerInner {
     padding-left: calc(env(safe-area-inset-left, 0px) + clamp(1rem, 4vw, 4.5rem));
     padding-right: calc(env(safe-area-inset-right, 0px) + clamp(1rem, 4vw, 4.5rem));
@@ -231,88 +245,8 @@
     width: 2.5rem;
   }
 
-  .menuLinks {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    margin: 0;
-    padding: clamp(6.4rem, 16vh, 8.4rem) calc(env(safe-area-inset-right, 0px) + 1.35rem)
-      clamp(2rem, 7vh, 3rem) calc(env(safe-area-inset-left, 0px) + 1rem);
-    background: rgb(var(--color-brand-rgb) / 0.985);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-start;
-    gap: clamp(1rem, 2.8vh, 1.3rem);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-8%);
-    transition:
-      opacity 0.28s ease,
-      transform 0.3s ease;
-  }
-
-  .menuDockOpen .menuLinks {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: translateY(0) !important;
-  }
-
-  .menuLinks a {
-    width: min(92vw, 26rem);
-    flex: none;
-    padding: 1rem 0.25rem;
-    border: 0 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.26) !important;
-    border-radius: 0;
-    background: transparent;
-    font-size: clamp(1.16rem, 5.4vw, 1.44rem);
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    line-height: 1.16;
-    text-align: right;
-    color: #ffffff;
-    text-transform: uppercase;
-    text-decoration: none !important;
-    transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .menuLinks a:hover,
-  .menuLinks a:focus-visible,
-  .menuLinks a:active {
-    text-decoration: none !important;
-  }
-
-  .menuLinks a[data-active="true"] {
-    border-color: rgba(255, 255, 255, 0.9) !important;
-    color: #f7fff6;
-  }
-
-  .menuLinks a:active {
-    transform: translateY(1px);
-  }
-
-  .menuFooter {
-    margin-top: auto;
-    padding-top: clamp(1.6rem, 5vh, 2.4rem);
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .menuFooterLogo {
-    width: min(55vw, 196px);
-    height: auto;
-    filter: brightness(0) invert(1);
-    opacity: 0.84;
-  }
-
+  /* Mobile menu lives in a body portal (SiteHeader.tsx); header only shows the toggle. */
   .hamburger {
-    position: relative;
-    z-index: 1001;
     width: 2.5rem;
     height: 2.5rem;
     border-left: 0;
@@ -320,6 +254,8 @@
     background: rgba(8, 14, 9, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.52);
     gap: 0.2rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .hamburger span {
@@ -340,4 +276,100 @@
   .menuDockOpen .hamburger span:nth-child(3) {
     transform: translateY(-5px) rotate(-45deg);
   }
+
+  /* Solid bar behind logo + hamburger so the green sheet (below) does not bleed through. */
+  .headerInnerMobileMenu {
+    background: #181918;
+    border-radius: 0 0 0.75rem 0.75rem;
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    padding-top: 0.12rem;
+    padding-bottom: 0.12rem;
+  }
+}
+
+/* Body portal: green sheet sits *under* the fixed header (z-index) so the header hamburger morphs in place. */
+.mobileNavSheet {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + clamp(3.1rem, 8.5vw, 3.85rem));
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overscroll-behavior: none;
+  background-color: var(--color-brand);
+  background-image: linear-gradient(
+      168deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 38%,
+      rgba(0, 0, 0, 0.14) 100%
+    ),
+    radial-gradient(95% 55% at 100% 0%, rgba(255, 255, 255, 0.12), transparent 52%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  padding: clamp(0.65rem, 1.8vh, 0.95rem) calc(env(safe-area-inset-right, 0px) + clamp(1rem, 4vw, 1.35rem))
+    env(safe-area-inset-bottom, 0px) calc(env(safe-area-inset-left, 0px) + clamp(1rem, 4vw, 1.35rem));
+}
+
+.mobileNavList {
+  /* Leave generous room below so phone/email sit well above the bottom edge */
+  flex: 0 1 auto;
+  max-height: calc(
+    100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - clamp(3.1rem, 8.5vw, 3.85rem) -
+      clamp(11rem, 36dvh, 16rem)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-top: clamp(1.75rem, 6vh, 3rem);
+  gap: clamp(0.75rem, 2.2vh, 1.1rem);
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  width: 100%;
+}
+
+.mobileNavContact {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: clamp(1rem, 3.5vh, 1.75rem);
+  padding-top: clamp(0.5rem, 1.5vh, 0.85rem);
+  padding-bottom: clamp(0.75rem, 2.5vh, 1.25rem);
+}
+
+.mobileNavContactInner {
+  width: min(92vw, 26rem);
+}
+
+.mobileNavLink {
+  display: block;
+  width: min(92vw, 26rem);
+  flex: none;
+  padding: 0.82rem 0.12rem;
+  text-align: right;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: clamp(1.16rem, 5.4vw, 1.44rem);
+  letter-spacing: 0.1em;
+  line-height: 1.16;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobileNavLink[data-active="true"] {
+  color: #f7fff6;
+  border-color: rgba(255, 255, 255, 0.92);
 }
